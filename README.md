@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# CSVtoHex 프로젝트 기획서
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 프로젝트 개요
 
-## Available Scripts
+- CSV 파일을 Hex 파일로 변환하는 프로그램이 필요함.
 
-In the project directory, you can run:
+# 프로젝트 목적
 
-### `yarn start`
+- CSV 파일을 `.mbc` 파일로 변환 후 다운로드가 가능하도록 하는 것.
+- HxD프로그램으로 열었을 때 열려야 함
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# 프로젝트 사용 기술 스택
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- React, Typescript, ElectronJS
+- Node.js, postgresSql
 
-### `yarn test`
+# 프로젝트 기능 명세서
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[프로젝트 기능 명세서](CSVtoHex%20%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%80%E1%85%B5%E1%84%92%E1%85%AC%E1%86%A8%E1%84%89%E1%85%A5%20e3a4f64d097449d5b24a27715aa75d20/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%80%E1%85%B5%E1%84%82%E1%85%B3%E1%86%BC%20%E1%84%86%E1%85%A7%E1%86%BC%E1%84%89%E1%85%A6%E1%84%89%E1%85%A5%200c742073f0c44252b62982cfeed79a73.csv)
 
-### `yarn build`
+# 프로젝트 기간
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> 23.10.11 ~ 23.11.11 (약 한 달)
+> 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# WBS
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[CSVtoHex_WBS.pdf](CSVtoHex%20%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%80%E1%85%B5%E1%84%92%E1%85%AC%E1%86%A8%E1%84%89%E1%85%A5%20e3a4f64d097449d5b24a27715aa75d20/CSVtoHex_WBS.pdf)
 
-### `yarn eject`
+[CSVtoHex_WBS_1.2.4.xlsx](CSVtoHex%20%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%80%E1%85%B5%E1%84%92%E1%85%AC%E1%86%A8%E1%84%89%E1%85%A5%20e3a4f64d097449d5b24a27715aa75d20/CSVtoHex_WBS_1.2.4.xlsx)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# 디자인
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[피그마](https://www.figma.com/file/EOrqJFr9uZLpMQGDjsSfwx/CSVtoHex?type=design&node-id=2%3A2&mode=design&t=Pqz4D2yjAICSxnK4-1)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# 서비스 흐름 및 구성
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+[CSVtoHex_서비스 흐름도.pdf](CSVtoHex%20%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%80%E1%85%B5%E1%84%92%E1%85%AC%E1%86%A8%E1%84%89%E1%85%A5%20e3a4f64d097449d5b24a27715aa75d20/CSVtoHex_%25EC%2584%259C%25EB%25B9%2584%25EC%258A%25A4_%25ED%259D%2590%25EB%25A6%2584%25EB%258F%2584.pdf)
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[CSVtoHex_서비스 흐름도.pptx](CSVtoHex%20%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%80%E1%85%B5%E1%84%92%E1%85%AC%E1%86%A8%E1%84%89%E1%85%A5%20e3a4f64d097449d5b24a27715aa75d20/CSVtoHex_%25EC%2584%259C%25EB%25B9%2584%25EC%258A%25A4_%25ED%259D%2590%25EB%25A6%2584%25EB%258F%2584.pptx)
