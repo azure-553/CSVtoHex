@@ -2,15 +2,16 @@ import React from 'react';
 import { styled } from 'styled-components';
 import { ButtonText } from '../styles/font';
 
-const FileChangeBtn = ({ text, type, onClick }) => {
+const FileChangeBtn = ({ text, type, onClick, disabled }) => {
   return (
-    <Box type={type} onClick={onClick} disabled>
+    <Box type={type} onClick={onClick} disabled={disabled}>
         <ButtonText>{text}</ButtonText>
     </Box>
   );
 };
 
 const Box = styled.button`
+  cursor: pointer;
   display: flex;
   width: 200px;
   height: 49px;
@@ -20,14 +21,15 @@ const Box = styled.button`
 
   border-radius: 8px;
   border: none;
-  border-color: ${({ theme }) => theme.colors.gray200};
-  background-color: ${({ theme }) => theme.colors.gray200};
+  border-color: ${({ theme }) => theme.colors.p700};
+  background-color: ${({ theme }) => theme.colors.p700};
+  color: ${({ theme }) => theme.colors.white};
 
-  &:hover {
-    cursor: pointer;
-    border-color: ${({ theme }) => theme.colors.black};
-    background-color: ${({ theme }) => theme.colors.p700};
-    color: ${({ theme }) => theme.colors.white};
+  &:disabled {
+    cursor: default;
+    border-color: ${({ theme }) => theme.colors.gs300};
+    background-color: ${({ theme }) => theme.colors.gray200};
+    color: ${({ theme }) => theme.colors.gs500};
   }
 `;
 export default FileChangeBtn;
