@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import FileBtn from '../components/FileBtn'
 import styled from 'styled-components'
+import UploadComponent from '../components/Upload/UploadComponent'
 
 const HomePage = () => {
   const [isFile, setIsFile] = useState(false)
@@ -8,6 +9,7 @@ const HomePage = () => {
 
   return (
     <div>
+      <UploadComponent/>
       <BtnWrap>
         <FileBtn
           text="Hex 파일 변환"
@@ -31,6 +33,7 @@ const HomePage = () => {
 }
 
 const BtnWrap = styled.div`
+  margin: 0 auto;
   width: 420px;
   display: flex;
   justify-content: space-between;
