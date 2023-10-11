@@ -1,16 +1,15 @@
 import React from "react";
-import { Body, ButtonText, CustomFont, Title } from "./styles/font";
+import GlobalStyle from "./styles/GlobalStyle";
+import { BrowserRouter as Router } from "react-router-dom";
+import MainRouter from "./MainRouter";
 
 const App = () => {
   return (
     <main>
-      <Title>Hello world</Title>
-      <br/>
-      <Body>Hi</Body>
-      <br/>
-      <CustomFont>This is CustomFont</CustomFont>
-      <br/>
-      <ButtonText>This is ButtonText</ButtonText>
+      <GlobalStyle/>
+      <Router>
+        <MainRouter/>
+      </Router>
     </main>
   );
 }
