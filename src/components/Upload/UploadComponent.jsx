@@ -82,8 +82,7 @@ const FileInput = styled.input`
   display: none;
   &::file-selector-button {
     font-size: 14px;
-    background: #fff;
-    border: 1px solid #111;
+    background: ${({ theme }) => theme.colors.white};
     border-radius: 12px;
     padding: 4px 32px;
     cursor: pointer;
