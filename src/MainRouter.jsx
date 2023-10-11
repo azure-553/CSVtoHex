@@ -19,8 +19,9 @@ const Container = styled.div`
   display: flex;
   height: calc(var(--vh, 1vh) * 100);
   justify-content: center;
-  margin: auto;
-  max-width: 100%;
+  // margin: auto;
+  // max-width: 100%;
+  background-color: ${({ theme }) => theme.colors.p500};
 `;
 
 export default MainRouter;
