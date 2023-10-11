@@ -11,7 +11,8 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       devTools: isDev
-    }
+    },
+    icon: path.join(__dirname, './favicon.ico')
   });
 
   mainWindow.loadURL(
