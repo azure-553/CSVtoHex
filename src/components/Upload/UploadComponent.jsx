@@ -1,33 +1,93 @@
-import React from "react";
-import { ReactComponent as Logo } from "../../assets/images/dropbox.svg";
-import styled from "styled-components";
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { ReactComponent as Logo } from '../../assets/images/dropbox.svg'
+import { Body, Title } from '../../styles/font'
+import { FileInfo } from './FileInfo'
 
 const UploadComponent = () => {
-    return(
-        <div>
-            <UploadBoxStyled>
-                <Logo/>
-            </UploadBoxStyled>
-        </div>
-    );
+  const [isActive, setActive] = useState(false)
+  const [uploadedInfo, setUploadedInfo] = useState(null)
+
+  const handleDragStart = () => setActive(true)
+  const handleDragEnd = () => setActive(false)
+  const handleDragOver = (event) => {
+    event.preventDefault()
+  }
+
+  const setFileInfo = (file) => {
+    const { name, size: byteSize, type } = file
+    const size = (byteSize / (1024 * 1024)).toFixed(2) + 'mb'
+    setUploadedInfo({ name, size, type }) // name, size, type 정보를 uploadedInfo에 저장
+  }
+
+  const handleDrop = (event) => {
+    event.preventDefault()
+    setActive(false)
+
+    const file = event.dataTransfer.files[0]
+    setFileInfo(file)
+  }
+
+  const handleUpload = ({ target }) => {
+    const file = target.files[0]
+    setFileInfo(file)
+  }
+
+  return (
+    <div>
+      <UploadBoxStyled
+        onDragEnter={handleDragStart}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragEnd}
+        onDrop={handleDrop}
+      >
+        <FileInput type="file" className="file" onChange={handleUpload} />
+        {uploadedInfo && <FileInfo uploadedInfo={uploadedInfo} />}
+        {!uploadedInfo && (
+          <>
+            <Logo />
+            <Title>클릭 혹은 파일을 이곳에 드롭하세요.</Title>
+            <Body>파일당 최대 3MB</Body>
+          </>
+        )}
+      </UploadBoxStyled>
+    </div>
+  )
 }
 
+const UploadBoxStyled = styled.label`
+  margin-bottom: 45px;
+  padding-bottom: 100px;
 
-const UploadBoxStyled = styled.div`
-    margin-bottom: 45px;
+  width: 1298px;
+  height: 502px;
 
-    width: 1298px;
-    height: 502px;
+  background-color: ${({ theme }) => theme.colors.gray200};
+  border-radius: 12px;
 
-    background-color: ${({theme}) => theme.colors.gray200};
+  border: 3px dashed ${({ theme }) => theme.colors.gs300};
+
+  &:hover {
+    border: 3px dashed ${({ theme }) => theme.colors.gs500};
+  }
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`
+
+const FileInput = styled.input`
+  display: none;
+  &::file-selector-button {
+    font-size: 14px;
+    background: #fff;
+    border: 1px solid #111;
     border-radius: 12px;
+    padding: 4px 32px;
+    cursor: pointer;
+  }
+`
 
-    border: 3px dashed ${({theme}) => theme.colors.gs300};
-
-    &:hover{
-        border: 3px dashed ${({theme}) => theme.colors.gs500};
-    }
-`;
-
-
-export default UploadComponent;
+export default UploadComponent
