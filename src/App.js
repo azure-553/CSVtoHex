@@ -1,10 +1,11 @@
 import React from "react";
+import { Title } from "./styles/font";
 
 const App = () => {
   return (
-    <div>
-      Hello world
-    </div>
+    <main>
+      <Title>Hello world</Title>
+    </main>
   );
 }
 
