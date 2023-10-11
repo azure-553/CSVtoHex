@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from 'styled-components'
 
 export const theme = {
   colors: {
@@ -38,7 +38,7 @@ export const theme = {
     body700: '2rem',
     body500: '2rem',
     body300: '2rem',
-    button: '2.25rem'
+    button: '2.25rem',
   },
   fontWeight: {
     title700: '700',
@@ -58,16 +58,16 @@ export const theme = {
     body300: '90%',
     button: '150%',
   },
-};
+}
 
 export const flexCenter = css`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 export const flexColumnCenter = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+`
