@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'SpoqaHanSansNeo';
-    
+
     src: url('../assets/fonts/SpoqaHanSansNeo-Bold.ttf') format('SpoqaHanSansNeoB'),
         url('../assets/fonts/SpoqaHanSansNeo-Light.ttf') format('SpoqaHanSansNeoL'),
         url('../assets/fonts/SpoqaHanSansNeo-Medium.ttf') format('SpoqaHanSansNeoM'),
@@ -20,7 +20,6 @@ const GlobalStyle = createGlobalStyle`
   html {
     font-size: 10px;
   }
-  
   body {
     font-family: 'SpoqaHanSansNeo', sans-serif;
   }

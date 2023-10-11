@@ -33,7 +33,6 @@ export const Body = styled.span`
 export const ButtonText = styled.span`
   font-weight: ${({ weight }) => (weight ? weight : 500)};
   font-size: ${({ size }) => (size ? size : '1.6rem')}; // 16px
-  color: ${({ color }) => (color ? color : theme.colors.black)};
 
   font-style: normal;
   font-weight: 500;
