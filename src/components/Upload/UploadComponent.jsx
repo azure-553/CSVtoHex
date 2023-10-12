@@ -5,6 +5,7 @@ import { Body, Title } from '../../styles/font'
 import { FileInfo } from './FileInfo'
 import useFile from '../../hooks/useFile'
 import FileBtn from '../FileBtn'
+import { Loading } from '../Loading'
 
 const UploadComponent = () => {
   const {
