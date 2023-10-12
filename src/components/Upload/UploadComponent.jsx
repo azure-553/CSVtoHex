@@ -11,7 +11,6 @@ const UploadComponent = () => {
   const [isFile, setIsFile] = useState(true)
   const [isChanged, setIsChanged] = useState(true)
 
-
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
   const handleDragOver = (event) => {
@@ -39,6 +38,18 @@ const UploadComponent = () => {
     setIsFile(false)
   }
 
+  const handleFileChange = () => {
+    console.log('FileChangeBtn Clicked')
+    setIsFile(true)
+    setTimeout(() => {
+      setIsChanged(false)
+    }, 3000)
+  }
+
+  const handleFileDownload = () => {
+    console.log('FileDownBtn Clicked')
+  }
+
   return (
     <div>
       <UploadBoxStyled
@@ -62,21 +73,13 @@ const UploadComponent = () => {
         <FileBtn
           text="Hex 파일 변환"
           type="button"
-          onClick={() => {
-            console.log('FileChangeBtn Clicked');
-            setIsFile(true)
-            setTimeout(()=>{
-              setIsChanged(false)
-            },3000);
-          }}
+          onClick={handleFileChange}
           disabled={isFile}
         />
         <FileBtn
           text="파일 다운로드"
           type="button"
-          onClick={() => {
-            console.log('FileDownBtn Clicked')
-          }}
+          onClick={handleFileDownload}
           disabled={isChanged}
         />
       </BtnWrap>
@@ -94,7 +97,11 @@ const UploadBoxStyled = styled.label`
   background-color: ${({ theme }) => theme.colors.gray200};
   border-radius: 12px;
 
-  border: 3px dashed ${props => props.isActive===true ? 'rgba(73, 80, 87, 0.80)': 'rgba(173, 181, 189, 0.40)'};
+  border: 3px dashed
+    ${(props) =>
+      props.isActive === true
+        ? 'rgba(73, 80, 87, 0.80)'
+        : 'rgba(173, 181, 189, 0.40)'};
 
   &:hover {
     border: 3px dashed ${({ theme }) => theme.colors.gs500};
