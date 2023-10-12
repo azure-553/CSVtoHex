@@ -16,6 +16,7 @@ export const FileInfo = ({ uploadedInfo }) => (
 )
 
 const InfoBox = styled.ul`
+  position: relative;
   display: block;
   list-style: none;
   padding-top: 40px;

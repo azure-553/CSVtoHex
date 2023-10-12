@@ -5,6 +5,7 @@ export default function useFile() {
   const [uploadedInfo, setUploadedInfo] = useState(null)
   const [isFile, setIsFile] = useState(true)
   const [isChanged, setIsChanged] = useState(true)
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
@@ -36,8 +37,10 @@ export default function useFile() {
   const handleFileChange = () => {
     console.log('FileChangeBtn Clicked')
     setIsFile(true)
+    setIsLoading(true)
     setTimeout(() => {
       setIsChanged(false)
+      setIsLoading(false)
     }, 3000)
   }
 
@@ -50,6 +53,7 @@ export default function useFile() {
     uploadedInfo,
     isFile,
     isChanged,
+    isLoading,
     handleDragStart,
     handleDragEnd,
     handleDragOver,

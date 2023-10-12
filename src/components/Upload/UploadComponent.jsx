@@ -20,6 +20,7 @@ const UploadComponent = () => {
     isFile,
     handleFileDownload,
     isChanged,
+    isLoading
   } = useFile()
 
   return (
@@ -33,6 +34,7 @@ const UploadComponent = () => {
       >
         <FileInput type="file" onChange={handleUpload} />
         {uploadedInfo && <FileInfo uploadedInfo={uploadedInfo} />}
+        {isLoading && <Loading />}
         {!uploadedInfo && (
           <>
             <Logo />
