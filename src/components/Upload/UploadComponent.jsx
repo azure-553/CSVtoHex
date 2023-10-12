@@ -1,54 +1,25 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { ReactComponent as Logo } from '../../assets/images/dropbox.svg'
 import { Body, Title } from '../../styles/font'
 import { FileInfo } from './FileInfo'
+import useFile from '../../hooks/useFile'
 import FileBtn from '../FileBtn'
 
 const UploadComponent = () => {
-  const [isActive, setActive] = useState(false)
-  const [uploadedInfo, setUploadedInfo] = useState(null)
-  const [isFile, setIsFile] = useState(true)
-  const [isChanged, setIsChanged] = useState(true)
-
-  const handleDragStart = () => setActive(true)
-  const handleDragEnd = () => setActive(false)
-  const handleDragOver = (event) => {
-    event.preventDefault()
-  }
-
-  const setFileInfo = (file) => {
-    const { name, size: byteSize, type } = file
-    const size = (byteSize / (1024 * 1024)).toFixed(2) + 'mb'
-    setUploadedInfo({ name, size, type }) // name, size, type 정보를 uploadedInfo에 저장
-  }
-
-  const handleDrop = (event) => {
-    event.preventDefault()
-    setActive(false)
-
-    const file = event.dataTransfer.files[0]
-    setFileInfo(file)
-    setIsFile(false)
-  }
-
-  const handleUpload = ({ target }) => {
-    const file = target.files[0]
-    setFileInfo(file)
-    setIsFile(false)
-  }
-
-  const handleFileChange = () => {
-    console.log('FileChangeBtn Clicked')
-    setIsFile(true)
-    setTimeout(() => {
-      setIsChanged(false)
-    }, 3000)
-  }
-
-  const handleFileDownload = () => {
-    console.log('FileDownBtn Clicked')
-  }
+  const {
+    handleDragStart,
+    handleDragOver,
+    handleDragEnd,
+    handleDrop,
+    isActive,
+    handleUpload,
+    uploadedInfo,
+    handleFileChange,
+    isFile,
+    handleFileDownload,
+    isChanged,
+  } = useFile()
 
   return (
     <div>
