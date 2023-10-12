@@ -3,10 +3,14 @@ import styled from 'styled-components'
 import { ReactComponent as Logo } from '../../assets/images/dropbox.svg'
 import { Body, Title } from '../../styles/font'
 import { FileInfo } from './FileInfo'
+import FileBtn from '../FileBtn'
 
 const UploadComponent = () => {
   const [isActive, setActive] = useState(false)
   const [uploadedInfo, setUploadedInfo] = useState(null)
+  const [isFile, setIsFile] = useState(true)
+  const [isChanged, setIsChanged] = useState(true)
+
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
@@ -26,11 +30,13 @@ const UploadComponent = () => {
 
     const file = event.dataTransfer.files[0]
     setFileInfo(file)
+    setIsFile(false)
   }
 
   const handleUpload = ({ target }) => {
     const file = target.files[0]
     setFileInfo(file)
+    setIsFile(false)
   }
 
   return (
@@ -40,8 +46,9 @@ const UploadComponent = () => {
         onDragOver={handleDragOver}
         onDragLeave={handleDragEnd}
         onDrop={handleDrop}
+        isActive={isActive}
       >
-        <FileInput type="file" className="file" onChange={handleUpload} />
+        <FileInput type="file" onChange={handleUpload} />
         {uploadedInfo && <FileInfo uploadedInfo={uploadedInfo} />}
         {!uploadedInfo && (
           <>
@@ -51,6 +58,28 @@ const UploadComponent = () => {
           </>
         )}
       </UploadBoxStyled>
+      <BtnWrap>
+        <FileBtn
+          text="Hex 파일 변환"
+          type="button"
+          onClick={() => {
+            console.log('FileChangeBtn Clicked');
+            setIsFile(true)
+            setTimeout(()=>{
+              setIsChanged(false)
+            },3000);
+          }}
+          disabled={isFile}
+        />
+        <FileBtn
+          text="파일 다운로드"
+          type="button"
+          onClick={() => {
+            console.log('FileDownBtn Clicked')
+          }}
+          disabled={isChanged}
+        />
+      </BtnWrap>
     </div>
   )
 }
@@ -65,7 +94,7 @@ const UploadBoxStyled = styled.label`
   background-color: ${({ theme }) => theme.colors.gray200};
   border-radius: 12px;
 
-  border: 3px dashed ${({ theme }) => theme.colors.gs300};
+  border: 3px dashed ${props => props.isActive===true ? 'rgba(73, 80, 87, 0.80)': 'rgba(173, 181, 189, 0.40)'};
 
   &:hover {
     border: 3px dashed ${({ theme }) => theme.colors.gs500};
@@ -87,6 +116,13 @@ const FileInput = styled.input`
     padding: 4px 32px;
     cursor: pointer;
   }
+`
+
+const BtnWrap = styled.div`
+  margin: 0 auto;
+  width: 420px;
+  display: flex;
+  justify-content: space-between;
 `
 
 export default UploadComponent
