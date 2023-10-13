@@ -5,7 +5,7 @@ export default function useFile() {
   const [uploadedInfo, setUploadedInfo] = useState(null)
   const [isFile, setIsFile] = useState(true)
   const [isChanged, setIsChanged] = useState(true)
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)

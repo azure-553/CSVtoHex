@@ -1,14 +1,14 @@
-import React from 'react';
-import { styled } from 'styled-components';
-import { ButtonText } from '../styles/font';
+import React from 'react'
+import { styled } from 'styled-components'
+import { ButtonText } from '../styles/font'
 
 const FileChangeBtn = ({ text, type, onClick, disabled }) => {
   return (
     <Box type={type} onClick={onClick} disabled={disabled}>
-        <ButtonText>{text}</ButtonText>
+      <ButtonText>{text}</ButtonText>
     </Box>
-  );
-};
+  )
+}
 
 const Box = styled.button`
   cursor: pointer;
@@ -31,5 +31,5 @@ const Box = styled.button`
     background-color: ${({ theme }) => theme.colors.gray200};
     color: ${({ theme }) => theme.colors.gs500};
   }
-`;
-export default FileChangeBtn;
+`
+export default FileChangeBtn
