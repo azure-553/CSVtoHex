@@ -32,7 +32,7 @@ const UploadComponent = () => {
         onDrop={handleDrop}
         isActive={isActive}
       >
-        <FileInput type="file" onChange={handleUpload} />
+        <FileInput type="file" onChange={handleUpload} accept=".csv"/>
         {uploadedInfo && <FileInfo uploadedInfo={uploadedInfo} />}
         {isLoading && <Loading />}
         {!uploadedInfo && (
