@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { ReactComponent as Logo } from '../../assets/images/dropbox.svg'
 import { Body, Title } from '../../styles/font'
-import { FileInfo } from './FileInfo'
+// import { FileInfo } from './FileInfo'
 import useFile from '../../hooks/useFile'
 import FileBtn from '../FileBtn'
 import { Loading } from '../Loading'
@@ -14,7 +14,7 @@ const UploadComponent = () => {
     handleDragEnd,
     handleDrop,
     isActive,
-    handleUpload,
+    // handleUpload,
     uploadedInfo,
     handleFileChange,
     isFile,
@@ -22,6 +22,21 @@ const UploadComponent = () => {
     isChanged,
     isLoading,
   } = useFile()
+
+  const [file, setFile] = useState(null);
+
+  const handleFile = (e) => {
+    try {
+      let file = e.target.files[0];
+      let fileReader = new FileReader();
+      fileReader.onload = () => {
+        setFile(fileReader.result);
+      };
+    fileReader.readAsText(file);
+    } catch (error) {
+      console.log(error)
+    }
+  };
 
   return (
     <div>
@@ -32,8 +47,10 @@ const UploadComponent = () => {
         onDrop={handleDrop}
         isActive={isActive}
       >
-        <FileInput type="file" onChange={handleUpload} accept=".csv" />
-        {uploadedInfo && <FileInfo uploadedInfo={uploadedInfo} />}
+        {/* <FileInput type="file" onChange={handleUpload} accept=".csv" /> */}
+        <FileInput type="file" onChange={handleFile} accept=".csv" />
+        <div>{file}</div>
+        {/* {uploadedInfo && <FileInfo uploadedInfo={uploadedInfo} />} */}
         {isLoading && <Loading />}
         {!uploadedInfo && (
           <>
