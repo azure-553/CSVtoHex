@@ -14,11 +14,15 @@ export default function useFile() {
   }
 
   const setFileInfo = (file) => {
-    let fileReader = new FileReader()
-    fileReader.onload = () => {
-      setUploadedInfo(fileReader.result)
+    try {
+      let fileReader = new FileReader()
+      fileReader.onload = () => {
+        setUploadedInfo(fileReader.result)
+      }
+      fileReader.readAsText(file)
+    } catch (error) {
+      console.log('[ERROR] 파일을 선택해주세요.')
     }
-    fileReader.readAsText(file)
   }
 
   const handleDrop = (event) => {
