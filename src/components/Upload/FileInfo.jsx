@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { CustomFont } from '../../styles/font'
+import { Title } from '../../styles/font'
 
 export const FileInfo = ({ uploadedInfo }) => (
   <InfoBox>
-    <CustomFont size="1.2rem">{uploadedInfo}</CustomFont>
+    <Title>{uploadedInfo}</Title>
   </InfoBox>
 )
 
