@@ -5,6 +5,7 @@ import { Body, Title } from '../../styles/font'
 import useFile from '../../hooks/useFile'
 import FileBtn from '../FileBtn'
 import { Loading } from '../Loading'
+import { FileInfo } from './FileInfo'
 
 const UploadComponent = () => {
   const {
@@ -32,7 +33,7 @@ const UploadComponent = () => {
         isActive={isActive}
       >
         <FileInput type="file" onChange={handleUpload} accept=".csv" />
-        <div>{uploadedInfo}</div>
+        <FileInfo uploadedInfo={uploadedInfo}/>
         {isLoading && <Loading />}
         {!uploadedInfo && (
           <>
