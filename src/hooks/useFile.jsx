@@ -14,9 +14,14 @@ export default function useFile() {
   }
 
   const setFileInfo = (file) => {
-    const { name, size: byteSize, type } = file
-    const size = (byteSize / (1024 * 1024)).toFixed(2) + 'mb'
-    setUploadedInfo({ name, size, type }) // name, size, type 정보를 uploadedInfo에 저장
+    // const { name, size: byteSize, type } = file
+    // const size = (byteSize / (1024 * 1024)).toFixed(2) + 'mb'
+    let fileReader = new FileReader()
+    fileReader.onload = () => {
+      setUploadedInfo(fileReader.result)
+    }
+    fileReader.readAsText(file)
+    // setUploadedInfo({ name, size, type }) // name, size, type 정보를 uploadedInfo에 저장
   }
 
   const handleDrop = (event) => {

@@ -14,7 +14,7 @@ const UploadComponent = () => {
     handleDragEnd,
     handleDrop,
     isActive,
-    // handleUpload,
+    handleUpload,
     uploadedInfo,
     handleFileChange,
     isFile,
@@ -22,21 +22,6 @@ const UploadComponent = () => {
     isChanged,
     isLoading,
   } = useFile()
-
-  const [file, setFile] = useState(null);
-
-  const handleFile = (e) => {
-    try {
-      let file = e.target.files[0];
-      let fileReader = new FileReader();
-      fileReader.onload = () => {
-        setFile(fileReader.result);
-      };
-    fileReader.readAsText(file);
-    } catch (error) {
-      console.log(error)
-    }
-  };
 
   return (
     <div>
@@ -48,8 +33,8 @@ const UploadComponent = () => {
         isActive={isActive}
       >
         {/* <FileInput type="file" onChange={handleUpload} accept=".csv" /> */}
-        <FileInput type="file" onChange={handleFile} accept=".csv" />
-        <div>{file}</div>
+        <FileInput type="file" onChange={handleUpload} accept=".csv" />
+        <div>{uploadedInfo}</div>
         {/* {uploadedInfo && <FileInfo uploadedInfo={uploadedInfo} />} */}
         {isLoading && <Loading />}
         {!uploadedInfo && (
