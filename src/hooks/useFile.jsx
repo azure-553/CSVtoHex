@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import csvToJSON from '../utils/csvToJson'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -6,6 +7,7 @@ export default function useFile() {
   const [isFile, setIsFile] = useState(true)
   const [isChanged, setIsChanged] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
+  let csvContent = []
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
@@ -17,6 +19,8 @@ export default function useFile() {
     try {
       let fileReader = new FileReader()
       fileReader.onload = () => {
+        csvContent = csvToJSON(fileReader.result)
+        console.log(csvToJSON(fileReader.result))
         setUploadedInfo(fileReader.result)
       }
       fileReader.readAsText(file)
