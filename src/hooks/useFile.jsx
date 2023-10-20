@@ -67,7 +67,7 @@ export default function useFile() {
       await fileStream.write(blob)
       await fileStream.close()
     } catch (error) {
-      alert('[ERROR] 파일을 선택해주세요.')
+      alert('[ERROR] 파일을 저장해주세요.')
     }
   }
 
