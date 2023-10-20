@@ -47,7 +47,7 @@ export default function useFile() {
     setTimeout(() => {
       setIsChanged(false)
       setIsLoading(false)
-    }, 3000)
+    }, 2000)
   }
 
   const handleFileDownload = async () => {
