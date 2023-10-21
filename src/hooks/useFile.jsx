@@ -47,11 +47,28 @@ export default function useFile() {
     setTimeout(() => {
       setIsChanged(false)
       setIsLoading(false)
-    }, 3000)
+    }, 2000)
   }
 
-  const handleFileDownload = () => {
-    console.log('FileDownBtn Clicked')
+  const handleFileDownload = async () => {
+    try {
+      console.log('FileDownBtn Clicked')
+
+      let textArea = uploadedInfo
+      console.log(uploadedInfo)
+      let blob = new Blob([textArea], {
+        type: 'plain/text',
+      })
+      const fileHandle = await window.showSaveFilePicker({
+        suggestedName: 'MCFG_NEW_HEAT.MBC',
+      })
+      const fileStream = await fileHandle.createWritable()
+
+      await fileStream.write(blob)
+      await fileStream.close()
+    } catch (error) {
+      alert('[ERROR] 파일을 저장해주세요.')
+    }
   }
 
   return {

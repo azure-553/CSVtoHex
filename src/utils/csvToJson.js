@@ -14,7 +14,7 @@ export default function csvToJSON(csv_string) {
     let obj = {}
 
     // 각 내용 행을 콤마로 구분
-    let row = rows[i].replace(/(\s*)/g, "").split(',')
+    let row = rows[i].replace(/(\s*)/g, '').split(',')
 
     // 각 내용행을 {제목1:내용1, 제목2:내용2, ...} 형태의 객체로 생성
     for (let j = 0; j < header.length; j++) {
@@ -27,7 +27,4 @@ export default function csvToJSON(csv_string) {
 
   // 5. 완성된 JSON 객체 배열 반환
   return jsonArray
-
-  // 문자열 형태의 JSON으로 반환할 경우, 아래 코드 사용
-//   return JSON.stringify(jsonArray);
 }
