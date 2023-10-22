@@ -12,7 +12,7 @@
 # 프로젝트 사용 기술 스택
 
 - React, Typescript, ElectronJS
-- Node.js, postgresSql
+
 
 # 프로젝트 기능 명세서
 
@@ -31,6 +31,8 @@
 # 디자인
 
 [피그마](https://www.figma.com/file/EOrqJFr9uZLpMQGDjsSfwx/CSVtoHex?type=design&node-id=2%3A2&mode=design&t=Pqz4D2yjAICSxnK4-1)
+
+<img width="924" alt="Screenshot 2023-10-22 at 11 46 50 PM" src="https://github.com/azure-553/CSVtoHex/assets/80371353/13b5fd61-f599-4cd1-acf3-bffa72fa488b">
 
 # 서비스 흐름 및 구성
 
