@@ -22,62 +22,65 @@ export const FileInfo = ({ uploadedInfo }) => {
     const useFlag = (item.Use_flag || '').split('')
     const port = (item.Port || '').split('')
 
+    let arrCsvContentHex = []
     seq.forEach((element) => {
-      const seqHex = element.charCodeAt()
-      console.log(seqHex)
+      const seqHex = element.charCodeAt().toString(16)
+      arrCsvContentHex.push(seqHex)
     })
     deviceId.forEach((element) => {
-      const deviceIdHex = element.charCodeAt()
-      console.log(deviceIdHex)
+      const deviceIdHex = element.charCodeAt().toString(16)
+      arrCsvContentHex.push(deviceIdHex)
     })
     tagCode.forEach((element) => {
-      const tagCodeHex = element.charCodeAt()
-      console.log(tagCodeHex)
+      const tagCodeHex = element.charCodeAt().toString(16)
+      arrCsvContentHex.push(tagCodeHex)
     })
     reqSet.forEach((element) => {
-      const reqSetHex = element.charCodeAt()
-      console.log(reqSetHex)
+      const reqSetHex = element.charCodeAt().toString(16)
+      arrCsvContentHex.push(reqSetHex)
     })
     func.forEach((element) => {
-      const funcHex = element.charCodeAt()
-      console.log(funcHex)
+      const funcHex = element.charCodeAt().toString(16)
+      arrCsvContentHex.push(funcHex)
     })
     unitId.forEach((element) => {
-      const unitIdHex = element.charCodeAt()
-      console.log(unitIdHex)
+      const unitIdHex = element.charCodeAt().toString(16)
+      arrCsvContentHex.push(unitIdHex)
     })
     reserved.forEach((element) => {
-      const reservedHex = element.charCodeAt()
-      console.log(reservedHex)
+      const reservedHex = element.charCodeAt().toString(16)
+      arrCsvContentHex.push(reservedHex)
     })
     address.forEach((element) => {
-      const addressHex = element.charCodeAt()
-      console.log(addressHex)
+      const addressHex = element.charCodeAt().toString(16)
+      arrCsvContentHex.push(addressHex)
     })
     endian.forEach((element) => {
-      const endianHex = element.charCodeAt()
-      console.log(endianHex)
+      const endianHex = element.charCodeAt().toString(16)
+      arrCsvContentHex.push(endianHex)
     })
     wordcnt.forEach((element) => {
-      const wordcntHex = element.charCodeAt()
-      console.log(wordcntHex)
+      const wordcntHex = element.charCodeAt().toString(16)
+      arrCsvContentHex.push(wordcntHex)
     })
     format.forEach((element) => {
-      const formatHex = element.charCodeAt()
-      console.log(formatHex)
+      const formatHex = element.charCodeAt().toString(16)
+      arrCsvContentHex.push(formatHex)
     })
     scale.forEach((element) => {
-      const scaleHex = element.charCodeAt()
-      console.log(scaleHex)
+      const scaleHex = element.charCodeAt().toString(16)
+      arrCsvContentHex.push(scaleHex)
     })
     useFlag.forEach((element) => {
-      const useFlagHex = element.charCodeAt()
-      console.log(useFlagHex)
+      const useFlagHex = element.charCodeAt().toString(16)
+      arrCsvContentHex.push(useFlagHex)
     })
     port.forEach((element) => {
-      const portHex = element.charCodeAt()
-      console.log(portHex)
+      const portHex = element.charCodeAt().toString(16)
+      arrCsvContentHex.push(portHex)
     })
+
+    console.log(arrCsvContentHex)
   })
 
   return (
