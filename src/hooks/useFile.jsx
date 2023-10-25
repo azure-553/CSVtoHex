@@ -33,7 +33,7 @@ export default function useFile() {
     const func = (item.func || '').split('')
     const unitId = (item.unit_id || '').split('')
     const reserved = (item.Reserved || '').split('')
-    const address = (item.address || '').split('')
+    const address = item.address
     const endian = (item.endian || '').split('')
     const wordcnt = (item.wordcnt || '').split('')
     const format = item.format
@@ -75,10 +75,8 @@ export default function useFile() {
       arrCsvContentHex.push(reservedHex)
     })
 
-    address.forEach((element) => {
-      const addressHex = String.fromCharCode(element)
-      arrCsvContentHex.push(addressHex)
-    })
+    const addressHex = String.fromCharCode(address)
+    arrCsvContentHex.push(addressHex)
 
     endian.forEach((element) => {
       const endianHex = element
