@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import csvToJSON from '../utils/csvToJson'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -6,6 +7,149 @@ export default function useFile() {
   const [isFile, setIsFile] = useState(true)
   const [isChanged, setIsChanged] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
+
+  const stringUploadInfo = String(uploadedInfo)
+  let csvContent = csvToJSON(stringUploadInfo)
+
+  const formats = {
+    formatI: 'INT64',
+    formatJ: 'INT32',
+    formatK: 'INT64',
+    formatU: 'UNIT16',
+    formatV: 'UNIT32',
+    formatW: 'UNIT64',
+    formatF: 'F32',
+    formatD: 'F64',
+    formatB: 'BITS',
+  }
+
+  let arrCsvContentHex = []
+
+  csvContent.map((item) => {
+    const seq = (item.seq || '').split('')
+    const deviceId = (item.device_id || '').split('')
+    const tagCode = item.tag_code
+    const reqSet = (item.req_set || '').split('')
+    const func = (item.func || '').split('')
+    const unitId = (item.unit_id || '').split('')
+    const reserved = (item.Reserved || '').split('')
+    const address = (item.address || '').split('')
+    const endian = (item.endian || '').split('')
+    const wordcnt = (item.wordcnt || '').split('')
+    const format = item.format
+    const scale = (item.scale || '').split('')
+    const useFlag = (item.Use_flag || '').split('')
+    const port = (item.Port || '').split('')
+
+    seq.forEach((element) => {
+      const seqHex = String.fromCharCode(element)
+      arrCsvContentHex.push(seqHex)
+    })
+
+    deviceId.forEach((element) => {
+      const deviceIdHex = element
+      arrCsvContentHex.push(deviceIdHex)
+    })
+
+    // 임시로!
+    const tagCodeHex = String.fromCharCode(tagCode)
+    arrCsvContentHex.push(tagCodeHex)
+
+    reqSet.forEach((element) => {
+      const reqSetHex = String.fromCharCode(element)
+      arrCsvContentHex.push(reqSetHex)
+    })
+
+    func.forEach((element) => {
+      const funcHex = String.fromCharCode(element)
+      arrCsvContentHex.push(funcHex)
+    })
+
+    unitId.forEach((element) => {
+      const unitIdHex = String.fromCharCode(element)
+      arrCsvContentHex.push(unitIdHex)
+    })
+
+    reserved.forEach((element) => {
+      const reservedHex = String.fromCharCode(element)
+      arrCsvContentHex.push(reservedHex)
+    })
+
+    address.forEach((element) => {
+      const addressHex = String.fromCharCode(element)
+      arrCsvContentHex.push(addressHex)
+    })
+
+    endian.forEach((element) => {
+      const endianHex = element
+      arrCsvContentHex.push(endianHex)
+    })
+
+    wordcnt.forEach((element) => {
+      const wordcntHex = String.fromCharCode(element)
+      arrCsvContentHex.push(wordcntHex)
+    })
+
+    let formatHex = ''
+
+    switch (format) {
+      case formats.formatJ:
+        formatHex = 'J'
+        arrCsvContentHex.push(formatHex)
+        break
+      case formats.formatI:
+        formatHex = 'I'
+        arrCsvContentHex.push(formatHex)
+        break
+      case formats.formatK:
+        formatHex = 'K'
+        arrCsvContentHex.push(formatHex)
+        break
+      case formats.formatU:
+        formatHex = 'U'
+        arrCsvContentHex.push(formatHex)
+        break
+      case formats.formatV:
+        formatHex = 'V'
+        arrCsvContentHex.push(formatHex)
+        break
+      case formats.formatW:
+        formatHex = 'W'
+        arrCsvContentHex.push(formatHex)
+        break
+      case formats.formatF:
+        formatHex = 'F'
+        arrCsvContentHex.push(formatHex)
+        break
+      case formats.formatD:
+        formatHex = 'D'
+        arrCsvContentHex.push(formatHex)
+        break
+      case formats.formatB:
+        formatHex = 'B'
+        arrCsvContentHex.push(formatHex)
+        break
+    }
+
+    scale.forEach((element) => {
+      const scaleHex = String.fromCharCode(element)
+      arrCsvContentHex.push(scaleHex)
+    })
+
+    useFlag.forEach((element) => {
+      const useFlagHex = String.fromCharCode(element)
+      arrCsvContentHex.push(useFlagHex)
+    })
+
+    port.forEach((element) => {
+      const portHex = String.fromCharCode(element)
+      arrCsvContentHex.push(portHex)
+    })
+
+    console.log(arrCsvContentHex)
+  })
+
+  let newArrCsvContent = arrCsvContentHex.join('')
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
@@ -54,10 +198,9 @@ export default function useFile() {
     try {
       console.log('FileDownBtn Clicked')
 
-      let textArea = uploadedInfo
-      console.log(uploadedInfo)
+      let textArea = newArrCsvContent
       let blob = new Blob([textArea], {
-        type: 'plain/text',
+        type: 'plain/text;charset=ANSI',
       })
       const fileHandle = await window.showSaveFilePicker({
         suggestedName: 'MCFG_NEW_HEAT.MBC',
