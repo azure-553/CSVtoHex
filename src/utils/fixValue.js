@@ -46,6 +46,8 @@ const versionFixValue = String.fromCharCode(0, 0, 0, 0, 0, 0, 0)
 const mapType = 'M'
 const reservedFixValue = String.fromCharCode(0)
 
+const finish = '&SQISoft..'
+
 export {
   headerFixValue,
   header,
@@ -54,5 +56,6 @@ export {
   versionFixValue,
   version,
   reservedFixValue,
-  mapType
+  mapType,
+  finish
 }

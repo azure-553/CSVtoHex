@@ -8,7 +8,8 @@ import {
   version,
   versionFixValue,
   mapType,
-  reservedFixValue
+  reservedFixValue,
+  finish,
 } from '../utils/fixValue'
 
 export default function useFile() {
@@ -157,10 +158,9 @@ export default function useFile() {
       const portHex = String.fromCharCode(element)
       arrCsvContentHex.push(portHex)
     })
-
-    console.log(arrCsvContentHex)
   })
-
+  console.log(arrCsvContentHex)
+  arrCsvContentHex.push(finish)
   let newArrCsvContent = arrCsvContentHex.join('')
 
   const handleDragStart = () => setActive(true)
