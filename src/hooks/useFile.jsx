@@ -1,5 +1,15 @@
 import { useState } from 'react'
 import csvToJSON from '../utils/csvToJson'
+import {
+  header,
+  headerFixValue,
+  username,
+  usernameFixValue,
+  version,
+  versionFixValue,
+  mapType,
+  reservedFixValue
+} from '../utils/fixValue'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -24,6 +34,10 @@ export default function useFile() {
   }
 
   let arrCsvContentHex = []
+  arrCsvContentHex.push(header + headerFixValue)
+  arrCsvContentHex.push(username + usernameFixValue)
+  arrCsvContentHex.push(version + versionFixValue)
+  arrCsvContentHex.push(mapType + reservedFixValue)
 
   csvContent.map((item) => {
     const seq = (item.seq || '').split('')
@@ -198,7 +212,7 @@ export default function useFile() {
 
       let textArea = newArrCsvContent
       let blob = new Blob([textArea], {
-        type: 'plain/text;charset=ANSI',
+        type: 'octet/stream;charset=euc-kr(CP949)',
       })
       const fileHandle = await window.showSaveFilePicker({
         suggestedName: 'MCFG_NEW_HEAT.MBC',
