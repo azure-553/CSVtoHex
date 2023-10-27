@@ -159,6 +159,9 @@ export default function useFile() {
       const portHex = String.fromCharCode(element)
       arrCsvContentHex.push(portHex)
     })
+
+    // TODO : 모두 다 끝나고 찍히는 0 제거하기
+    arrCsvContentHex.splice(40,37)
   })
   console.log(arrCsvContentHex)
   arrCsvContentHex.push(finish + finishFixValue)
