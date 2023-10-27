@@ -11,6 +11,7 @@ import {
   reservedFixValue,
   finish,
 } from '../utils/fixValue'
+import { formats } from '../utils/formats'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -21,18 +22,6 @@ export default function useFile() {
 
   const stringUploadInfo = String(uploadedInfo)
   let csvContent = csvToJSON(stringUploadInfo)
-
-  const formats = {
-    formatI: 'INT64',
-    formatJ: 'INT32',
-    formatK: 'INT64',
-    formatU: 'UNIT16',
-    formatV: 'UNIT32',
-    formatW: 'UNIT64',
-    formatF: 'F32',
-    formatD: 'F64',
-    formatB: 'BITS',
-  }
 
   let arrCsvContentHex = []
   arrCsvContentHex.push(header + headerFixValue)
