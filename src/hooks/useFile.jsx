@@ -10,7 +10,7 @@ import {
   mapType,
   reservedFixValue,
   finish,
-  finishFixValue
+  finishFixValue,
 } from '../utils/fixValue'
 import { formats } from '../utils/formats'
 
@@ -51,10 +51,20 @@ export default function useFile() {
       arrCsvContentHex.push(seqHex)
     })
 
+    if (seq.length < 2) {
+      arrCsvContentHex.push(String.fromCharCode(0))
+    }
+
     deviceId.forEach((element) => {
       const deviceIdHex = element
       arrCsvContentHex.push(deviceIdHex)
     })
+
+    if (deviceId.length < 16) {
+      for (let i = 0; i < 16 - deviceId.length; i++) {
+        arrCsvContentHex.push(String.fromCharCode(0))
+      }
+    }
 
     // 임시로!
     const tagCodeHex = String.fromCharCode(tagCode)
@@ -94,43 +104,44 @@ export default function useFile() {
     })
 
     let formatHex = ''
+    const formatHexFixValue = String.fromCharCode(0)
 
     switch (format) {
       case formats.formatJ:
         formatHex = 'J'
-        arrCsvContentHex.push(formatHex)
+        arrCsvContentHex.push(formatHex + formatHexFixValue)
         break
       case formats.formatI:
         formatHex = 'I'
-        arrCsvContentHex.push(formatHex)
+        arrCsvContentHex.push(formatHex + formatHexFixValue)
         break
       case formats.formatK:
         formatHex = 'K'
-        arrCsvContentHex.push(formatHex)
+        arrCsvContentHex.push(formatHex + formatHexFixValue)
         break
       case formats.formatU:
         formatHex = 'U'
-        arrCsvContentHex.push(formatHex)
+        arrCsvContentHex.push(formatHex + formatHexFixValue)
         break
       case formats.formatV:
         formatHex = 'V'
-        arrCsvContentHex.push(formatHex)
+        arrCsvContentHex.push(formatHex + formatHexFixValue)
         break
       case formats.formatW:
         formatHex = 'W'
-        arrCsvContentHex.push(formatHex)
+        arrCsvContentHex.push(formatHex + formatHexFixValue)
         break
       case formats.formatF:
         formatHex = 'F'
-        arrCsvContentHex.push(formatHex)
+        arrCsvContentHex.push(formatHex + formatHexFixValue)
         break
       case formats.formatD:
         formatHex = 'D'
-        arrCsvContentHex.push(formatHex)
+        arrCsvContentHex.push(formatHex + formatHexFixValue)
         break
       case formats.formatB:
         formatHex = 'B'
-        arrCsvContentHex.push(formatHex)
+        arrCsvContentHex.push(formatHex + formatHexFixValue)
         break
     }
 
