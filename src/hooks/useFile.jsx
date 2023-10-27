@@ -10,6 +10,7 @@ import {
   mapType,
   reservedFixValue,
   finish,
+  finishFixValue
 } from '../utils/fixValue'
 import { formats } from '../utils/formats'
 
@@ -149,7 +150,7 @@ export default function useFile() {
     })
   })
   console.log(arrCsvContentHex)
-  arrCsvContentHex.push(finish)
+  arrCsvContentHex.push(finish + finishFixValue)
   let newArrCsvContent = arrCsvContentHex.join('')
 
   const handleDragStart = () => setActive(true)
