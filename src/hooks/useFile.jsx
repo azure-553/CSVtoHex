@@ -66,7 +66,7 @@ export default function useFile() {
       }
     }
 
-    // 임시로!
+    // TODO : 해당 값의 바이너리 값을 떨어뜨려야 함.
     const tagCodeHex = String.fromCharCode(tagCode)
     arrCsvContentHex.push(tagCodeHex)
 
@@ -145,6 +145,7 @@ export default function useFile() {
         break
     }
 
+    // TODO : 실숫값 변환. 마찬가지로 바이너리로 떨어뜨리기
     scale.forEach((element) => {
       const scaleHex = String.fromCharCode(element)
       arrCsvContentHex.push(scaleHex)
