@@ -217,7 +217,7 @@ export default function useFile() {
 
       let textArea = newArrCsvContent
       let blob = new Blob([textArea], {
-        type: 'octet/stream;charset=euc-kr(CP949)',
+        type: 'octet/stream;charset=windows-1252',
       })
       const fileHandle = await window.showSaveFilePicker({
         suggestedName: 'MCFG_NEW_HEAT.MBC',
