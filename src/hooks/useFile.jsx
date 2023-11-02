@@ -67,8 +67,11 @@ export default function useFile() {
     }
 
     // TODO : 해당 값의 바이너리 값을 떨어뜨려야 함.
-    const tagCodeHex = String.fromCharCode(tagCode)
-    arrCsvContentHex.push(tagCodeHex)
+    if (!isNaN(Number(tagCode))) {
+      const tagCodeHex = Number(Number(tagCode).toString(2))
+      arrCsvContentHex.push(String.fromCharCode(tagCodeHex))
+      console.log(String.fromCharCode(tagCodeHex))
+    }
 
     reqSet.forEach((element) => {
       const reqSetHex = String.fromCharCode(element)
@@ -162,7 +165,7 @@ export default function useFile() {
     })
 
     // TODO : 모두 다 끝나고 찍히는 0 제거하기
-    arrCsvContentHex.splice(40,37)
+    arrCsvContentHex.splice(40, 37)
   })
   console.log(arrCsvContentHex)
   arrCsvContentHex.push(finish + finishFixValue)
