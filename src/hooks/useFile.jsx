@@ -25,8 +25,21 @@ export default function useFile() {
   let csvContent = csvToJSON(stringUploadInfo)
 
   let arrCsvContentHex = []
-  // arrCsvContentHex.push(header + headerFixValue)
-  // arrCsvContentHex.push(username + usernameFixValue)
+  header
+    .split('')
+    .forEach((element) => arrCsvContentHex.push(element.charCodeAt()))
+  headerFixValue.forEach((element) =>
+    arrCsvContentHex.push(parseInt(element, 10)),
+  )
+  username
+    .split('')
+    .forEach((element) => arrCsvContentHex.push(element.charCodeAt()))
+  usernameFixValue.forEach((element) =>
+    arrCsvContentHex.push(parseInt(element, 10)),
+  )
+  version
+    .split('')
+    .forEach((element) => arrCsvContentHex.push(element.charCodeAt()))
   // arrCsvContentHex.push(version + versionFixValue)
   // arrCsvContentHex.push(mapType + reservedFixValue)
 
@@ -101,7 +114,6 @@ export default function useFile() {
     //   arrCsvContentHex.push(addressHex)
     //   arrCsvContentHex.push(parseInt(0,10))
     // }
-
 
     endian.forEach((element) => {
       const endianHex = element.charCodeAt()

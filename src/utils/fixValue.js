@@ -1,53 +1,17 @@
 const header = '#MCFG'
-const headerFixValue = String.fromCharCode(0, 13, 0, 13, 10)
+const headerFixValue = [0, 13, 0, 13, 10]
 
 const username = 'admin'
-const usernameFixValue = String.fromCharCode(
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-)
+const usernameFixValue = new Array(35).fill(0)
 
 const version = '1.0'
-const versionFixValue = String.fromCharCode(0, 0, 0, 0, 0, 0, 0)
+const versionFixValue = new Array(7).fill(0)
 
 const mapType = 'M'
-const reservedFixValue = String.fromCharCode(0)
+const reservedFixValue = [0]
 
 const finish = '&SQISoft'
-const finishFixValue = String.fromCharCode(13,10)
+const finishFixValue = [13,10]
 
 export {
   headerFixValue,
