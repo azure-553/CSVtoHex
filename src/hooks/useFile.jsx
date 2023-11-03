@@ -25,10 +25,10 @@ export default function useFile() {
   let csvContent = csvToJSON(stringUploadInfo)
 
   let arrCsvContentHex = []
-  arrCsvContentHex.push(header + headerFixValue)
-  arrCsvContentHex.push(username + usernameFixValue)
-  arrCsvContentHex.push(version + versionFixValue)
-  arrCsvContentHex.push(mapType + reservedFixValue)
+  // arrCsvContentHex.push(header + headerFixValue)
+  // arrCsvContentHex.push(username + usernameFixValue)
+  // arrCsvContentHex.push(version + versionFixValue)
+  // arrCsvContentHex.push(mapType + reservedFixValue)
 
   csvContent.map((item) => {
     const seq = (item.seq || '').split('')
@@ -47,120 +47,128 @@ export default function useFile() {
     const port = (item.Port || '').split('')
 
     seq.forEach((element) => {
-      const seqHex = String.fromCharCode(element)
+      const seqHex = parseInt(element, 10)
       arrCsvContentHex.push(seqHex)
     })
 
     if (seq.length < 2) {
-      arrCsvContentHex.push(String.fromCharCode(0))
+      arrCsvContentHex.push(parseInt(0, 10))
     }
 
     deviceId.forEach((element) => {
-      const deviceIdHex = element
+      const deviceIdHex = element.charCodeAt()
       arrCsvContentHex.push(deviceIdHex)
     })
 
     if (deviceId.length < 16) {
       for (let i = 0; i < 16 - deviceId.length; i++) {
-        arrCsvContentHex.push(String.fromCharCode(0))
+        arrCsvContentHex.push(parseInt(0, 10))
       }
     }
 
-    // TODO : 해당 값의 바이너리 값을 떨어뜨려야 함.
+    // // TODO : 해당 값의 바이너리 값을 떨어뜨려야 함.
     if (!isNaN(Number(tagCode))) {
-      const tagCodeHex = Number(Number(tagCode).toString(2))
-      arrCsvContentHex.push(String.fromCharCode(tagCodeHex))
-      console.log(String.fromCharCode(tagCodeHex))
+      const tagCodeHex = parseInt(tagCode, 10)
+      if (tagCodeHex > 255) {
+        let high = tagCodeHex >> 8
+        let low = tagCodeHex & 0xff
+        arrCsvContentHex.push(low)
+        arrCsvContentHex.push(high)
+      }
     }
 
     reqSet.forEach((element) => {
-      const reqSetHex = String.fromCharCode(element)
+      const reqSetHex = parseInt(element, 10)
       arrCsvContentHex.push(reqSetHex)
     })
 
     func.forEach((element) => {
-      const funcHex = String.fromCharCode(element)
+      const funcHex = parseInt(element, 10)
       arrCsvContentHex.push(funcHex)
     })
 
     unitId.forEach((element) => {
-      const unitIdHex = String.fromCharCode(element)
+      const unitIdHex = parseInt(element, 10)
       arrCsvContentHex.push(unitIdHex)
     })
 
     reserved.forEach((element) => {
-      const reservedHex = String.fromCharCode(element)
+      const reservedHex = parseInt(element, 10)
       arrCsvContentHex.push(reservedHex)
     })
 
-    const addressHex = String.fromCharCode(address)
-    arrCsvContentHex.push(addressHex)
+    // if (String(address).length < 4) {
+    //   const addressHex = parseInt(address, 10)
+    //   arrCsvContentHex.push(addressHex)
+    //   arrCsvContentHex.push(parseInt(0,10))
+    // }
+
 
     endian.forEach((element) => {
-      const endianHex = element
+      const endianHex = element.charCodeAt()
       arrCsvContentHex.push(endianHex)
     })
 
     wordcnt.forEach((element) => {
-      const wordcntHex = String.fromCharCode(element)
+      const wordcntHex = parseInt(element, 10)
       arrCsvContentHex.push(wordcntHex)
     })
 
     let formatHex = ''
-    const formatHexFixValue = String.fromCharCode(0)
+    const formatHexFixValue = parseInt(0, 10)
 
     switch (format) {
       case formats.formatJ:
         formatHex = 'J'
-        arrCsvContentHex.push(formatHex + formatHexFixValue)
+        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
         break
       case formats.formatI:
         formatHex = 'I'
-        arrCsvContentHex.push(formatHex + formatHexFixValue)
+        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
         break
       case formats.formatK:
         formatHex = 'K'
-        arrCsvContentHex.push(formatHex + formatHexFixValue)
+        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
         break
       case formats.formatU:
         formatHex = 'U'
-        arrCsvContentHex.push(formatHex + formatHexFixValue)
+        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
         break
       case formats.formatV:
         formatHex = 'V'
-        arrCsvContentHex.push(formatHex + formatHexFixValue)
+        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
         break
       case formats.formatW:
         formatHex = 'W'
-        arrCsvContentHex.push(formatHex + formatHexFixValue)
+        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
         break
       case formats.formatF:
         formatHex = 'F'
-        arrCsvContentHex.push(formatHex + formatHexFixValue)
+        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
         break
       case formats.formatD:
         formatHex = 'D'
-        arrCsvContentHex.push(formatHex + formatHexFixValue)
+        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
         break
       case formats.formatB:
         formatHex = 'B'
-        arrCsvContentHex.push(formatHex + formatHexFixValue)
+        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
         break
     }
 
-    // TODO : 실숫값 변환. 마찬가지로 바이너리로 떨어뜨리기
-    scale.forEach((element) => {
-      const scaleHex = String.fromCharCode(element)
-      arrCsvContentHex.push(scaleHex)
-    })
+    // // TODO : 실숫값 변환. 마찬가지로 바이너리로 떨어뜨리기
+    // scale.forEach((element) => {
+    //   const scaleHex = String.fromCharCode(element)
+    //   arrCsvContentHex.push(scaleHex)
+    // })
 
     useFlag.forEach((element) => {
-      const useFlagHex = String.fromCharCode(element)
+      const useFlagHex = parseInt(element, 10)
       arrCsvContentHex.push(useFlagHex)
     })
 
     port.forEach((element) => {
-      const portHex = String.fromCharCode(element)
+      const portHex = parseInt(element, 10)
       arrCsvContentHex.push(portHex)
     })
 
@@ -168,8 +176,9 @@ export default function useFile() {
     arrCsvContentHex.splice(40, 37)
   })
   console.log(arrCsvContentHex)
-  arrCsvContentHex.push(finish + finishFixValue)
-  let newArrCsvContent = arrCsvContentHex.join('')
+  // arrCsvContentHex.push(finish + finishFixValue)
+  // let newArrCsvContent = arrCsvContentHex.join('')
+  let newArrCsvContent = arrCsvContentHex
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
@@ -219,9 +228,15 @@ export default function useFile() {
       console.log('FileDownBtn Clicked')
 
       let textArea = newArrCsvContent
-      let blob = new Blob([textArea], {
-        type: 'octet/stream;charset=windows-1252',
-      })
+      var ab = new ArrayBuffer(textArea.length) //textArea is the array with the integer
+      var ia = new Uint8Array(ab)
+
+      for (var i = 0; i < textArea.length; i++) {
+        ia[i] = textArea[i]
+      }
+
+      let blob = new Blob([ia], { type: 'application/octet-stream' })
+
       const fileHandle = await window.showSaveFilePicker({
         suggestedName: 'MCFG_NEW_HEAT.MBC',
       })
