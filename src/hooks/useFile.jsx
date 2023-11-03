@@ -66,7 +66,6 @@ export default function useFile() {
       }
     }
 
-    // // TODO : 해당 값의 바이너리 값을 떨어뜨려야 함.
     if (!isNaN(Number(tagCode))) {
       const tagCodeHex = parseInt(tagCode, 10)
       if (tagCodeHex > 255) {
