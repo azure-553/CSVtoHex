@@ -1,4 +1,11 @@
-# CSVtoHex 프로젝트 기획서
+# SQISOFT - 에너지 사업부
+
+<div align="center">
+<img width="200px;" src="https://github.com/azure-553/CSVtoHex/assets/80371353/4e941101-3608-4c54-9407-141a60eceb08"/>
+
+  <h1 align="middle">CSVtoHex 프로젝트</h1>
+   <img src="https://img.shields.io/badge/node-18.17.1-339933?logo=node.js">
+</div>
 
 # 프로젝트 개요
 
