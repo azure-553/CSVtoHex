@@ -40,8 +40,11 @@ export default function useFile() {
   version
     .split('')
     .forEach((element) => arrCsvContentHex.push(element.charCodeAt()))
-  // arrCsvContentHex.push(version + versionFixValue)
-  // arrCsvContentHex.push(mapType + reservedFixValue)
+  versionFixValue.forEach((element) => {
+    arrCsvContentHex.push(parseInt(element, 10))
+  })
+  arrCsvContentHex.push(mapType.charCodeAt())
+  arrCsvContentHex.push(parseInt(reservedFixValue, 10))
 
   csvContent.map((item) => {
     const seq = (item.seq || '').split('')
@@ -187,8 +190,12 @@ export default function useFile() {
     arrCsvContentHex.splice(40, 37)
   })
   console.log(arrCsvContentHex)
-  // arrCsvContentHex.push(finish + finishFixValue)
-  // let newArrCsvContent = arrCsvContentHex.join('')
+  finish.split('').forEach((element) => {
+    arrCsvContentHex.push(element.charCodeAt())
+  })
+  finishFixValue.forEach((element) =>
+    arrCsvContentHex.push(parseInt(element, 10)),
+  )
   let newArrCsvContent = arrCsvContentHex
 
   const handleDragStart = () => setActive(true)

@@ -8,7 +8,7 @@ const version = '1.0'
 const versionFixValue = new Array(7).fill(0)
 
 const mapType = 'M'
-const reservedFixValue = [0]
+const reservedFixValue = 0
 
 const finish = '&SQISoft'
 const finishFixValue = [13,10]
