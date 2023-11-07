@@ -46,6 +46,11 @@ export default function useFile() {
   arrCsvContentHex.push(mapType.charCodeAt())
   arrCsvContentHex.push(parseInt(reservedFixValue, 10))
 
+  // TODO: CRC값 계산해서 넣기
+  // TODO: child structure 값 넣기
+  // TODO: MsgLenght 넣기
+  // TODO: 비동기처리로 인해 생기는 0 처리해주기
+
   csvContent.map((item) => {
     const seq = (item.seq || '').split('')
     const deviceId = (item.device_id || '').split('')
@@ -187,7 +192,7 @@ export default function useFile() {
     })
 
     // TODO : 모두 다 끝나고 찍히는 0 제거하기
-    arrCsvContentHex.splice(40, 37)
+    // arrCsvContentHex.splice(40, 37)
   })
   console.log(arrCsvContentHex)
   finish.split('').forEach((element) => {
