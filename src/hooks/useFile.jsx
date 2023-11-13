@@ -51,6 +51,15 @@ export default function useFile() {
   // TODO: MsgLenght 넣기
   // TODO: 비동기처리로 인해 생기는 0 처리해주기
 
+  csvContent.map((x) => {
+    if(x.seq === 0) {
+      console.log(x.seq)
+      // if(byteLength(seq) < 4){
+      //   arrCsvContentHex.push(0)
+      // }
+    }
+  })
+
   csvContent.map((item) => {
     const seq = (item.seq || '').split('')
     const deviceId = (item.device_id || '').split('')
@@ -87,7 +96,7 @@ export default function useFile() {
       }
     }
 
-    if (!isNaN(Number(tagCode))) {
+    if (!isNaN(tagCode)) {
       const tagCodeHex = parseInt(tagCode, 10)
       if (tagCodeHex > 255) {
         let high = tagCodeHex >> 8
@@ -117,10 +126,12 @@ export default function useFile() {
       arrCsvContentHex.push(reservedHex)
     })
 
-    // if (String(address).length < 4) {
-    //   const addressHex = parseInt(address, 10)
-    //   arrCsvContentHex.push(addressHex)
-    //   arrCsvContentHex.push(parseInt(0,10))
+    // 반복 : 1부터 바이트길이까지
+    // const addressHex = parseInt(address, 10)
+    // if (바이트 계산 함수(address) < 4) {
+    // 반복 : 전체 길이에서 길이를 빼고 남은 부분 까지 0 채우기
+    // arrCsvContentHex.push(addressHex)
+    // arrCsvContentHex.push(parseInt(0,10))
     // }
 
     endian.forEach((element) => {
