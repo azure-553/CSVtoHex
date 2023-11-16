@@ -14,6 +14,8 @@ import {
 } from '../utils/fixValue'
 import { formats } from '../utils/formats'
 import generateHexFixValue from '../utils/generateHexFixValue'
+import parseIntValue from '../utils/parseIntValue'
+import extendsAsciiValue from '../utils/extendsAsciiValue'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -51,11 +53,7 @@ export default function useFile() {
     const useFlag = (item.Use_flag || '').split('')
     const port = (item.Port || '').split('')
 
-    seq.forEach((element) => {
-      const seqHex = parseInt(element, 10)
-      arrCsvContentHex.push(seqHex)
-    })
-
+    parseIntValue(arrCsvContentHex, seq)
     if (seq.length < 2) {
       arrCsvContentHex.push(parseInt(0, 10))
     }
@@ -72,34 +70,13 @@ export default function useFile() {
     }
 
     if (!isNaN(tagCode)) {
-      const tagCodeHex = parseInt(tagCode, 10)
-      if (tagCodeHex > 255) {
-        let high = tagCodeHex >> 8
-        let low = tagCodeHex & 0xff
-        arrCsvContentHex.push(low)
-        arrCsvContentHex.push(high)
-      }
+      extendsAsciiValue(arrCsvContentHex, tagCode)
     }
 
-    reqSet.forEach((element) => {
-      const reqSetHex = parseInt(element, 10)
-      arrCsvContentHex.push(reqSetHex)
-    })
-
-    func.forEach((element) => {
-      const funcHex = parseInt(element, 10)
-      arrCsvContentHex.push(funcHex)
-    })
-
-    unitId.forEach((element) => {
-      const unitIdHex = parseInt(element, 10)
-      arrCsvContentHex.push(unitIdHex)
-    })
-
-    reserved.forEach((element) => {
-      const reservedHex = parseInt(element, 10)
-      arrCsvContentHex.push(reservedHex)
-    })
+    parseIntValue(arrCsvContentHex, reqSet)
+    parseIntValue(arrCsvContentHex, func)
+    parseIntValue(arrCsvContentHex, unitId)
+    parseIntValue(arrCsvContentHex, reserved)
 
     const addressHex = parseInt(address, 10)
     arrCsvContentHex.push(addressHex)
@@ -115,10 +92,7 @@ export default function useFile() {
       arrCsvContentHex.push(endianHex)
     })
 
-    wordcnt.forEach((element) => {
-      const wordcntHex = parseInt(element, 10)
-      arrCsvContentHex.push(wordcntHex)
-    })
+    parseIntValue(arrCsvContentHex, wordcnt)
 
     let formatHex = ''
     const formatHexFixValue = parseInt(0, 10)
