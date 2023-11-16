@@ -19,7 +19,8 @@ import charCodeAtValue from '../utils/charCodeAtValue'
 import formatValue from '../utils/formatValue'
 import floatHexValue from '../utils/floatHexValue'
 import byteLengthValue from '../utils/byteLengthValue'
-import { BLOB_TYPE, DEVICE_MAX_BYTE, ERROR, SEQ_MEX_BYTE } from '../constants'
+import { DEVICE_MAX_BYTE, ERROR, SEQ_MEX_BYTE } from '../constants'
+import generateBlob from '../utils/generateBlob'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -141,23 +142,12 @@ export default function useFile() {
   const handleFileDownload = async () => {
     try {
       console.log('FileDownBtn Clicked')
-
-      let textArea = arrCsvContentHex
-      let arrayBuffer = new ArrayBuffer(textArea.length)
-      let unitArray = new Uint8Array(arrayBuffer)
-
-      for (let i = 0; i < textArea.length; i++) {
-        unitArray[i] = textArea[i]
-      }
-
-      let blob = new Blob([unitArray], { type: BLOB_TYPE })
-
       const fileHandle = await window.showSaveFilePicker({
         suggestedName: 'MCFG_NEW_HEAT.MBC',
       })
       const fileStream = await fileHandle.createWritable()
 
-      await fileStream.write(blob)
+      await fileStream.write(generateBlob(arrCsvContentHex))
       await fileStream.close()
     } catch (error) {
       alert(ERROR.SAVE)
