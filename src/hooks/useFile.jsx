@@ -49,7 +49,6 @@ export default function useFile() {
   // TODO: CRC값 계산해서 넣기
   // TODO: child structure 값 넣기
   // TODO: MsgLenght 넣기
-  // TODO: 비동기처리로 인해 생기는 0 처리해주기
 
   csvContent.map((item) => {
     const seq = (item.seq || '').split('')
@@ -180,10 +179,10 @@ export default function useFile() {
 
     const scaleHex = parseFloat(scale)
 
-    let farr = new Float32Array(1)
-    farr[0] = scaleHex
+    let floatArr = new Float32Array(1)
+    floatArr[0] = scaleHex
 
-    let barr = new Int8Array(farr.buffer)
+    let barr = new Int8Array(floatArr.buffer)
 
     for (let i = 0; i < barr.length; i++) {
       arrCsvContentHex.push(barr[i])
@@ -198,11 +197,12 @@ export default function useFile() {
       const portHex = parseInt(element, 10)
       arrCsvContentHex.push(portHex)
     })
-
-    // TODO : 모두 다 끝나고 찍히는 0 제거하기
-    arrCsvContentHex.splice(97, 141)
   })
+
+  // TODO : 모두 다 끝나고 찍히는 0 제거하기
+  arrCsvContentHex.splice(97, 141)
   console.log(arrCsvContentHex)
+
   finish.split('').forEach((element) => {
     arrCsvContentHex.push(element.charCodeAt())
   })
@@ -259,8 +259,8 @@ export default function useFile() {
       console.log('FileDownBtn Clicked')
 
       let textArea = newArrCsvContent
-      let ab = new ArrayBuffer(textArea.length) //textArea is the array with the integer
-      let ia = new Uint8Array(ab)
+      let arrayBuffer = new ArrayBuffer(textArea.length)
+      let ia = new Uint8Array(arrayBuffer)
 
       for (let i = 0; i < textArea.length; i++) {
         ia[i] = textArea[i]
