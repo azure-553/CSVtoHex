@@ -52,7 +52,7 @@ export default function useFile() {
   // TODO: 비동기처리로 인해 생기는 0 처리해주기
 
   csvContent.map((x) => {
-    if(x.seq === 0) {
+    if (x.seq === 0) {
       console.log(x.seq)
       // if(byteLength(seq) < 4){
       //   arrCsvContentHex.push(0)
@@ -72,7 +72,7 @@ export default function useFile() {
     const endian = (item.endian || '').split('')
     const wordcnt = (item.wordcnt || '').split('')
     const format = item.format
-    const scale = (item.scale || '').split('')
+    const scale = item.scale
     const useFlag = (item.Use_flag || '').split('')
     const port = (item.Port || '').split('')
 
@@ -126,13 +126,14 @@ export default function useFile() {
       arrCsvContentHex.push(reservedHex)
     })
 
-    // 반복 : 1부터 바이트길이까지
-    // const addressHex = parseInt(address, 10)
-    // if (바이트 계산 함수(address) < 4) {
-    // 반복 : 전체 길이에서 길이를 빼고 남은 부분 까지 0 채우기
-    // arrCsvContentHex.push(addressHex)
-    // arrCsvContentHex.push(parseInt(0,10))
-    // }
+    const addressHex = parseInt(address, 10)
+    arrCsvContentHex.push(addressHex)
+    const addressHexLength = addressHex.toString(16).length
+    if (addressHexLength < 4) {
+      for (let i = 0; i < 4 - addressHexLength; i++) {
+        arrCsvContentHex.push(parseInt(0, 10))
+      }
+    }
 
     endian.forEach((element) => {
       const endianHex = element.charCodeAt()
@@ -191,6 +192,7 @@ export default function useFile() {
     //   const scaleHex = String.fromCharCode(element)
     //   arrCsvContentHex.push(scaleHex)
     // })
+    // const scaleHex = scale
 
     useFlag.forEach((element) => {
       const useFlagHex = parseInt(element, 10)
