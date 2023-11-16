@@ -147,15 +147,8 @@ export default function useFile() {
       arrCsvContentHex.push(barr[i])
     }
 
-    useFlag.forEach((element) => {
-      const useFlagHex = parseInt(element, 10)
-      arrCsvContentHex.push(useFlagHex)
-    })
-
-    port.forEach((element) => {
-      const portHex = parseInt(element, 10)
-      arrCsvContentHex.push(portHex)
-    })
+    parseIntValue(arrCsvContentHex, useFlag)
+    parseIntValue(arrCsvContentHex, port)
   })
 
   // TODO : 모두 다 끝나고 찍히는 0 제거하기
