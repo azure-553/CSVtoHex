@@ -12,7 +12,6 @@ import {
   finish,
   finishFixValue,
 } from '../utils/fixValue'
-import { formats } from '../utils/formats'
 import generateHexFixValue from '../utils/generateHexFixValue'
 import parseIntValue from '../utils/parseIntValue'
 import extendsAsciiValue from '../utils/extendsAsciiValue'
@@ -109,7 +108,6 @@ export default function useFile() {
   console.log(arrCsvContentHex)
 
   generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
-  let newArrCsvContent = arrCsvContentHex
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
@@ -158,7 +156,7 @@ export default function useFile() {
     try {
       console.log('FileDownBtn Clicked')
 
-      let textArea = newArrCsvContent
+      let textArea = arrCsvContentHex
       let arrayBuffer = new ArrayBuffer(textArea.length)
       let unitArray = new Uint8Array(arrayBuffer)
 
