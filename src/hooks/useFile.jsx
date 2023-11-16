@@ -16,6 +16,8 @@ import { formats } from '../utils/formats'
 import generateHexFixValue from '../utils/generateHexFixValue'
 import parseIntValue from '../utils/parseIntValue'
 import extendsAsciiValue from '../utils/extendsAsciiValue'
+import charCodeAtValue from '../utils/charCodeAtValue'
+import formatValue from '../utils/formatValue'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -58,11 +60,7 @@ export default function useFile() {
       arrCsvContentHex.push(parseInt(0, 10))
     }
 
-    deviceId.forEach((element) => {
-      const deviceIdHex = element.charCodeAt()
-      arrCsvContentHex.push(deviceIdHex)
-    })
-
+    charCodeAtValue(arrCsvContentHex, deviceId)
     if (deviceId.length < 16) {
       for (let i = 0; i < 16 - deviceId.length; i++) {
         arrCsvContentHex.push(parseInt(0, 10))
@@ -87,54 +85,9 @@ export default function useFile() {
       }
     }
 
-    endian.forEach((element) => {
-      const endianHex = element.charCodeAt()
-      arrCsvContentHex.push(endianHex)
-    })
-
+    charCodeAtValue(arrCsvContentHex, endian)
     parseIntValue(arrCsvContentHex, wordcnt)
-
-    let formatHex = ''
-    const formatHexFixValue = parseInt(0, 10)
-
-    switch (format) {
-      case formats.formatJ:
-        formatHex = 'J'
-        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
-        break
-      case formats.formatI:
-        formatHex = 'I'
-        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
-        break
-      case formats.formatK:
-        formatHex = 'K'
-        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
-        break
-      case formats.formatU:
-        formatHex = 'U'
-        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
-        break
-      case formats.formatV:
-        formatHex = 'V'
-        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
-        break
-      case formats.formatW:
-        formatHex = 'W'
-        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
-        break
-      case formats.formatF:
-        formatHex = 'F'
-        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
-        break
-      case formats.formatD:
-        formatHex = 'D'
-        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
-        break
-      case formats.formatB:
-        formatHex = 'B'
-        arrCsvContentHex.push(formatHex.charCodeAt() + formatHexFixValue)
-        break
-    }
+    formatValue(arrCsvContentHex, format)
 
     const scaleHex = parseFloat(scale)
 
