@@ -13,6 +13,7 @@ import {
   finishFixValue,
 } from '../utils/fixValue'
 import { formats } from '../utils/formats'
+import generateHexFixValue from '../utils/generateHexFixValue'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -25,27 +26,11 @@ export default function useFile() {
   let csvContent = csvToJSON(stringUploadInfo)
 
   let arrCsvContentHex = []
-  header
-    .split('')
-    .forEach((element) => arrCsvContentHex.push(element.charCodeAt()))
-  headerFixValue.forEach((element) =>
-    arrCsvContentHex.push(parseInt(element, 10)),
-  )
-  username
-    .split('')
-    .forEach((element) => arrCsvContentHex.push(element.charCodeAt()))
-  usernameFixValue.forEach((element) =>
-    arrCsvContentHex.push(parseInt(element, 10)),
-  )
-  version
-    .split('')
-    .forEach((element) => arrCsvContentHex.push(element.charCodeAt()))
-  versionFixValue.forEach((element) => {
-    arrCsvContentHex.push(parseInt(element, 10))
-  })
+  generateHexFixValue(arrCsvContentHex, header, headerFixValue)
+  generateHexFixValue(arrCsvContentHex, version, versionFixValue)
+  generateHexFixValue(arrCsvContentHex, username, usernameFixValue)
   arrCsvContentHex.push(mapType.charCodeAt())
   arrCsvContentHex.push(parseInt(reservedFixValue, 10))
-
   // TODO: CRC값 계산해서 넣기
   // TODO: child structure 값 넣기
   // TODO: MsgLenght 넣기
@@ -203,12 +188,7 @@ export default function useFile() {
   arrCsvContentHex.splice(97, 141)
   console.log(arrCsvContentHex)
 
-  finish.split('').forEach((element) => {
-    arrCsvContentHex.push(element.charCodeAt())
-  })
-  finishFixValue.forEach((element) =>
-    arrCsvContentHex.push(parseInt(element, 10)),
-  )
+  generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
   let newArrCsvContent = arrCsvContentHex
 
   const handleDragStart = () => setActive(true)
