@@ -51,15 +51,6 @@ export default function useFile() {
   // TODO: MsgLenght 넣기
   // TODO: 비동기처리로 인해 생기는 0 처리해주기
 
-  csvContent.map((x) => {
-    if (x.seq === 0) {
-      console.log(x.seq)
-      // if(byteLength(seq) < 4){
-      //   arrCsvContentHex.push(0)
-      // }
-    }
-  })
-
   csvContent.map((item) => {
     const seq = (item.seq || '').split('')
     const deviceId = (item.device_id || '').split('')
@@ -130,7 +121,7 @@ export default function useFile() {
     arrCsvContentHex.push(addressHex)
     const addressHexLength = addressHex.toString(16).length
     if (addressHexLength < 4) {
-      for (let i = 0; i < 4 - addressHexLength; i++) {
+      for (let i = 1; i < 4 - addressHexLength; i++) {
         arrCsvContentHex.push(parseInt(0, 10))
       }
     }
@@ -187,12 +178,16 @@ export default function useFile() {
         break
     }
 
-    // // TODO : 실숫값 변환. 마찬가지로 바이너리로 떨어뜨리기
-    // scale.forEach((element) => {
-    //   const scaleHex = String.fromCharCode(element)
-    //   arrCsvContentHex.push(scaleHex)
-    // })
-    // const scaleHex = scale
+    const scaleHex = parseFloat(scale)
+
+    let farr = new Float32Array(1)
+    farr[0] = scaleHex
+
+    let barr = new Int8Array(farr.buffer)
+
+    for (let i = 0; i < barr.length; i++) {
+      arrCsvContentHex.push(barr[i])
+    }
 
     useFlag.forEach((element) => {
       const useFlagHex = parseInt(element, 10)
@@ -205,7 +200,7 @@ export default function useFile() {
     })
 
     // TODO : 모두 다 끝나고 찍히는 0 제거하기
-    // arrCsvContentHex.splice(40, 37)
+    arrCsvContentHex.splice(97, 141)
   })
   console.log(arrCsvContentHex)
   finish.split('').forEach((element) => {
@@ -264,10 +259,10 @@ export default function useFile() {
       console.log('FileDownBtn Clicked')
 
       let textArea = newArrCsvContent
-      var ab = new ArrayBuffer(textArea.length) //textArea is the array with the integer
-      var ia = new Uint8Array(ab)
+      let ab = new ArrayBuffer(textArea.length) //textArea is the array with the integer
+      let ia = new Uint8Array(ab)
 
-      for (var i = 0; i < textArea.length; i++) {
+      for (let i = 0; i < textArea.length; i++) {
         ia[i] = textArea[i]
       }
 
