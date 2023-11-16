@@ -18,6 +18,7 @@ import extendsAsciiValue from '../utils/extendsAsciiValue'
 import charCodeAtValue from '../utils/charCodeAtValue'
 import formatValue from '../utils/formatValue'
 import floatHexValue from '../utils/floatHexValue'
+import byteLengthValue from '../utils/byteLengthValue'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -76,14 +77,7 @@ export default function useFile() {
     parseIntValue(arrCsvContentHex, unitId)
     parseIntValue(arrCsvContentHex, reserved)
 
-    const addressHex = parseInt(address, 10)
-    arrCsvContentHex.push(addressHex)
-    const addressHexLength = addressHex.toString(16).length
-    if (addressHexLength < 4) {
-      for (let i = 1; i < 4 - addressHexLength; i++) {
-        arrCsvContentHex.push(parseInt(0, 10))
-      }
-    }
+    byteLengthValue(arrCsvContentHex, address)
 
     charCodeAtValue(arrCsvContentHex, endian)
 
@@ -118,11 +112,11 @@ export default function useFile() {
     }
   }
 
-  const handleDrop = (event) => {
-    event.preventDefault()
+  const handleDrop = (e) => {
+    e.preventDefault()
     setActive(false)
 
-    const file = event.dataTransfer.files[0]
+    const file = e.dataTransfer.files[0]
     setFileInfo(file)
     setIsFile(false)
   }
