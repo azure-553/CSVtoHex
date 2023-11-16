@@ -17,6 +17,7 @@ import parseIntValue from '../utils/parseIntValue'
 import extendsAsciiValue from '../utils/extendsAsciiValue'
 import charCodeAtValue from '../utils/charCodeAtValue'
 import formatValue from '../utils/formatValue'
+import floatHexValue from '../utils/floatHexValue'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -85,19 +86,12 @@ export default function useFile() {
     }
 
     charCodeAtValue(arrCsvContentHex, endian)
+
     parseIntValue(arrCsvContentHex, wordcnt)
+
     formatValue(arrCsvContentHex, format)
 
-    const scaleHex = parseFloat(scale)
-
-    let floatArr = new Float32Array(1)
-    floatArr[0] = scaleHex
-
-    let barr = new Int8Array(floatArr.buffer)
-
-    for (let i = 0; i < barr.length; i++) {
-      arrCsvContentHex.push(barr[i])
-    }
+    floatHexValue(arrCsvContentHex, scale)
 
     parseIntValue(arrCsvContentHex, useFlag)
     parseIntValue(arrCsvContentHex, port)
@@ -105,15 +99,12 @@ export default function useFile() {
 
   // TODO : 모두 다 끝나고 찍히는 0 제거하기
   arrCsvContentHex.splice(97, 141)
-  console.log(arrCsvContentHex)
 
   generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
-  const handleDragOver = (event) => {
-    event.preventDefault()
-  }
+  const handleDragOver = (e) => e.preventDefault()
 
   const setFileInfo = (file) => {
     try {
