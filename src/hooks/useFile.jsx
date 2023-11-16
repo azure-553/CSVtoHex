@@ -19,6 +19,7 @@ import charCodeAtValue from '../utils/charCodeAtValue'
 import formatValue from '../utils/formatValue'
 import floatHexValue from '../utils/floatHexValue'
 import byteLengthValue from '../utils/byteLengthValue'
+import { BLOB_TYPE, DEVICE_MAX_BYTE, ERROR, SEQ_MEX_BYTE } from '../constants'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -57,13 +58,13 @@ export default function useFile() {
     const port = (item.Port || '').split('')
 
     parseIntValue(arrCsvContentHex, seq)
-    if (seq.length < 2) {
+    if (seq.length < SEQ_MEX_BYTE) {
       arrCsvContentHex.push(parseInt(0, 10))
     }
 
     charCodeAtValue(arrCsvContentHex, deviceId)
-    if (deviceId.length < 16) {
-      for (let i = 0; i < 16 - deviceId.length; i++) {
+    if (deviceId.length < DEVICE_MAX_BYTE) {
+      for (let i = 0; i < DEVICE_MAX_BYTE - deviceId.length; i++) {
         arrCsvContentHex.push(parseInt(0, 10))
       }
     }
@@ -108,7 +109,7 @@ export default function useFile() {
       }
       fileReader.readAsText(file)
     } catch (error) {
-      console.log('[ERROR] 파일을 선택해주세요.')
+      console.log(ERROR.CHOOSE)
     }
   }
 
@@ -149,7 +150,7 @@ export default function useFile() {
         unitArray[i] = textArea[i]
       }
 
-      let blob = new Blob([unitArray], { type: 'application/octet-stream' })
+      let blob = new Blob([unitArray], { type: BLOB_TYPE })
 
       const fileHandle = await window.showSaveFilePicker({
         suggestedName: 'MCFG_NEW_HEAT.MBC',
@@ -159,7 +160,7 @@ export default function useFile() {
       await fileStream.write(blob)
       await fileStream.close()
     } catch (error) {
-      alert('[ERROR] 파일을 저장해주세요.')
+      alert(ERROR.SAVE)
     }
   }
 
