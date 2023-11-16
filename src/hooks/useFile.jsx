@@ -39,14 +39,14 @@ export default function useFile() {
 
   let arrCsvContentHex = []
   generateHexFixValue(arrCsvContentHex, header, headerFixValue)
-  generateHexFixValue(arrCsvContentHex, version, versionFixValue)
   generateHexFixValue(arrCsvContentHex, username, usernameFixValue)
+  generateHexFixValue(arrCsvContentHex, version, versionFixValue)
   arrCsvContentHex.push(mapType.charCodeAt())
   arrCsvContentHex.push(parseInt(reservedFixValue, 10))
-  // TODO: CRC값 계산해서 넣기
+  // TODO: MsgLength 넣기
   // TODO: child structure 값 넣기
-  // TODO: MsgLenght 넣기
-
+  // TODO: CRC값 계산해서 넣기
+  let childStructureArr = []
   csvContent.map((item) => {
     const seq = (item.seq || '').split('')
     const deviceId = (item.device_id || '').split('')
@@ -67,6 +67,7 @@ export default function useFile() {
     if (seq.length < SEQ_MEX_BYTE) {
       arrCsvContentHex.push(parseInt(0, 10))
     }
+    childStructureArr.push(Number(seq))
 
     charCodeAtValue(arrCsvContentHex, deviceId)
     if (deviceId.length < DEVICE_MAX_BYTE) {
@@ -97,9 +98,10 @@ export default function useFile() {
     parseIntValue(arrCsvContentHex, useFlag)
     parseIntValue(arrCsvContentHex, port)
   })
+  console.log(Math.max(...childStructureArr));
 
   // TODO : 모두 다 끝나고 찍히는 0 제거하기
-  arrCsvContentHex.splice(97, 141)
+  // arrCsvContentHex.splice(97, 141)
 
   generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
 
