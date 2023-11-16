@@ -160,13 +160,13 @@ export default function useFile() {
 
       let textArea = newArrCsvContent
       let arrayBuffer = new ArrayBuffer(textArea.length)
-      let ia = new Uint8Array(arrayBuffer)
+      let unitArray = new Uint8Array(arrayBuffer)
 
       for (let i = 0; i < textArea.length; i++) {
-        ia[i] = textArea[i]
+        unitArray[i] = textArea[i]
       }
 
-      let blob = new Blob([ia], { type: 'application/octet-stream' })
+      let blob = new Blob([unitArray], { type: 'application/octet-stream' })
 
       const fileHandle = await window.showSaveFilePicker({
         suggestedName: 'MCFG_NEW_HEAT.MBC',
