@@ -36,11 +36,11 @@ const UploadComponent = () => {
         <FileInfo uploadedInfo={uploadedInfo}/>
         {isLoading && <Loading />}
         {!uploadedInfo && (
-          <>
+          <React.Fragment>
             <Logo />
             <Title>클릭 혹은 파일을 이곳에 드롭하세요.</Title>
             <Body>파일당 최대 3MB</Body>
-          </>
+          </React.Fragment>
         )}
       </UploadBoxStyled>
       <BtnWrap>
