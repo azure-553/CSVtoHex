@@ -38,15 +38,17 @@ export default function useFile() {
   let csvContent = csvToJSON(stringUploadInfo)
 
   let arrCsvContentHex = []
+
   generateHexFixValue(arrCsvContentHex, header, headerFixValue)
   generateHexFixValue(arrCsvContentHex, username, usernameFixValue)
   generateHexFixValue(arrCsvContentHex, version, versionFixValue)
   arrCsvContentHex.push(mapType.charCodeAt())
   arrCsvContentHex.push(parseInt(reservedFixValue, 10))
-  // TODO: MsgLength 넣기
-  // TODO: child structure 값 넣기
-  // TODO: CRC값 계산해서 넣기
+
+  console.log(arrCsvContentHex)
+
   let childStructureArr = []
+
   csvContent.map((item) => {
     const seq = (item.seq || '').split('')
     const deviceId = (item.device_id || '').split('')
@@ -98,12 +100,18 @@ export default function useFile() {
     parseIntValue(arrCsvContentHex, useFlag)
     parseIntValue(arrCsvContentHex, port)
   })
-  console.log(Math.max(...childStructureArr));
+  const childStructureValue = Math.max(...childStructureArr)
+  const msgLength =
+    (4 + 16 + 4 + 1 + 1 + 1 + 4 + 1 + 1 + 1 + 8 + 1 + 1) * childStructureValue
+  arrCsvContentHex.splice(62, 0, msgLength)
+  arrCsvContentHex.splice(63, 0, Number(childStructureValue))
+  // TODO: CRC값 계산해서 넣기
 
   // TODO : 모두 다 끝나고 찍히는 0 제거하기
   // arrCsvContentHex.splice(97, 141)
+  console.log(arrCsvContentHex);
 
-  generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
+  // generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
