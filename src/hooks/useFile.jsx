@@ -107,11 +107,11 @@ export default function useFile() {
   arrCsvContentHex.splice(63, 0, Number(childStructureValue))
   // TODO: CRC값 계산해서 넣기
 
-  // TODO : 모두 다 끝나고 찍히는 0 제거하기
-  // arrCsvContentHex.splice(97, 141)
+  // TODO: 모두 다 끝나고 찍히는 0 제거하기
+  arrCsvContentHex.splice(97, 141)
   console.log(arrCsvContentHex);
 
-  // generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
+  generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
