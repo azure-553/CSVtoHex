@@ -106,6 +106,7 @@ export default function useFile() {
   arrCsvContentHex.splice(62, 0, msgLength)
   arrCsvContentHex.splice(63, 0, Number(childStructureValue))
   // TODO: CRC값 계산해서 넣기
+  // modbus 16type
 
   // TODO: 모두 다 끝나고 찍히는 0 제거하기
   arrCsvContentHex.splice(97, 141)
