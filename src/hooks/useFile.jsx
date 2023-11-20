@@ -22,7 +22,7 @@ import byteLengthValue from '../utils/byteLengthValue'
 import {
   DEVICE_MAX_BYTE,
   ERROR,
-  SEQ_MEX_BYTE,
+  SEQ_MAX_BYTE,
   SUGGEST_FILENAME,
 } from '../constants'
 import generateBlob from '../utils/generateBlob'
@@ -75,7 +75,7 @@ export default function useFile() {
 
     parseIntValue(arrCsvContentHex, seq)
     parseIntValue(calculateCRCArray, seq)
-    if (seq.length < SEQ_MEX_BYTE) {
+    if (seq.length < SEQ_MAX_BYTE) {
       arrCsvContentHex.push(parseInt(0, 10))
       calculateCRCArray.push(parseInt(0, 10))
     }
@@ -142,7 +142,7 @@ export default function useFile() {
   console.log(arrCsvContentHex)
   console.log(calculateCRCArray)
 
-  generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
+  // generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)

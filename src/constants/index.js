@@ -1,5 +1,5 @@
 export const BLOB_TYPE = 'application/octet-stream'
-export const SEQ_MEX_BYTE = 2
+export const SEQ_MAX_BYTE = 2
 export const DEVICE_MAX_BYTE = 16
 export const SUGGEST_FILENAME = 'MCFG_NEW_HEAT.MBC'
 
