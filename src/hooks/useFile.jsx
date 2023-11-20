@@ -38,12 +38,20 @@ export default function useFile() {
   let csvContent = csvToJSON(stringUploadInfo)
 
   let arrCsvContentHex = []
+  let calculateCRCArray = []
 
   generateHexFixValue(arrCsvContentHex, header, headerFixValue)
+
   generateHexFixValue(arrCsvContentHex, username, usernameFixValue)
+  generateHexFixValue(calculateCRCArray, username, usernameFixValue)
+
   generateHexFixValue(arrCsvContentHex, version, versionFixValue)
+  generateHexFixValue(calculateCRCArray, version, versionFixValue)
+
   arrCsvContentHex.push(mapType.charCodeAt())
   arrCsvContentHex.push(parseInt(reservedFixValue, 10))
+  calculateCRCArray.push(mapType.charCodeAt())
+  calculateCRCArray.push(parseInt(reservedFixValue, 10))
 
   console.log(arrCsvContentHex)
 
@@ -66,20 +74,25 @@ export default function useFile() {
     const port = (item.Port || '').split('')
 
     parseIntValue(arrCsvContentHex, seq)
+    parseIntValue(calculateCRCArray, seq)
     if (seq.length < SEQ_MEX_BYTE) {
       arrCsvContentHex.push(parseInt(0, 10))
+      calculateCRCArray.push(parseInt(0, 10))
     }
     childStructureArr.push(Number(seq))
 
     charCodeAtValue(arrCsvContentHex, deviceId)
+    charCodeAtValue(calculateCRCArray, deviceId)
     if (deviceId.length < DEVICE_MAX_BYTE) {
       for (let i = 0; i < DEVICE_MAX_BYTE - deviceId.length; i++) {
         arrCsvContentHex.push(parseInt(0, 10))
+        calculateCRCArray.push(parseInt(0, 10))
       }
     }
 
     if (!isNaN(tagCode)) {
       extendsAsciiValue(arrCsvContentHex, tagCode)
+      extendsAsciiValue(calculateCRCArray, tagCode)
     }
 
     parseIntValue(arrCsvContentHex, reqSet)
@@ -87,30 +100,47 @@ export default function useFile() {
     parseIntValue(arrCsvContentHex, unitId)
     parseIntValue(arrCsvContentHex, reserved)
 
+    parseIntValue(calculateCRCArray, reqSet)
+    parseIntValue(calculateCRCArray, func)
+    parseIntValue(calculateCRCArray, unitId)
+    parseIntValue(calculateCRCArray, reserved)
+
     byteLengthValue(arrCsvContentHex, address)
+    byteLengthValue(calculateCRCArray, address)
 
     charCodeAtValue(arrCsvContentHex, endian)
+    charCodeAtValue(calculateCRCArray, endian)
 
     parseIntValue(arrCsvContentHex, wordcnt)
+    parseIntValue(calculateCRCArray, wordcnt)
 
     formatValue(arrCsvContentHex, format)
+    formatValue(calculateCRCArray, format)
 
     floatHexValue(arrCsvContentHex, scale)
+    floatHexValue(calculateCRCArray, scale)
 
     parseIntValue(arrCsvContentHex, useFlag)
     parseIntValue(arrCsvContentHex, port)
+
+    parseIntValue(calculateCRCArray, useFlag)
+    parseIntValue(calculateCRCArray, port)
   })
   const childStructureValue = Math.max(...childStructureArr)
   const msgLength =
     (4 + 16 + 4 + 1 + 1 + 1 + 4 + 1 + 1 + 1 + 8 + 1 + 1) * childStructureValue
   arrCsvContentHex.splice(62, 0, msgLength)
   arrCsvContentHex.splice(63, 0, Number(childStructureValue))
+
+  calculateCRCArray.splice(52, 0, msgLength)
+  calculateCRCArray.splice(53, 0, Number(childStructureValue))
   // TODO: CRC값 계산해서 넣기
   // modbus 16type
 
   // TODO: 모두 다 끝나고 찍히는 0 제거하기
   arrCsvContentHex.splice(97, 141)
-  console.log(arrCsvContentHex);
+  console.log(arrCsvContentHex)
+  console.log(calculateCRCArray)
 
   generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
 
