@@ -26,6 +26,7 @@ import {
   SUGGEST_FILENAME,
 } from '../constants'
 import generateBlob from '../utils/generateBlob'
+import { crc16 } from '../utils/crc16'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -136,13 +137,14 @@ export default function useFile() {
   calculateCRCArray.splice(53, 0, Number(childStructureValue))
   // TODO: CRC값 계산해서 넣기
   // modbus 16type
-
+  const modbus = crc16(Uint8Array.from(calculateCRCArray)).toString(16)
+  arrCsvContentHex.splice(64, 0, modbus)
   // TODO: 모두 다 끝나고 찍히는 0 제거하기
   arrCsvContentHex.splice(97, 141)
   console.log(arrCsvContentHex)
   console.log(calculateCRCArray)
 
-  // generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
+  generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
