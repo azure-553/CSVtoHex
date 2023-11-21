@@ -24,9 +24,10 @@ import {
   ERROR,
   SEQ_MAX_BYTE,
   SUGGEST_FILENAME,
+  MSGLENGTH_ONE,
 } from '../constants'
 import generateBlob from '../utils/generateBlob'
-import { crc16 } from '../utils/crc16'
+// import { crc16 } from '../utils/crc16'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -41,18 +42,25 @@ export default function useFile() {
   let arrCsvContentHex = []
   let calculateCRCArray = []
 
+  // header 10
   generateHexFixValue(arrCsvContentHex, header, headerFixValue)
 
+  // username 40
   generateHexFixValue(arrCsvContentHex, username, usernameFixValue)
-  generateHexFixValue(calculateCRCArray, username, usernameFixValue)
+  // generateHexFixValue(calculateCRCArray, username, usernameFixValue)
 
+  // version 10
   generateHexFixValue(arrCsvContentHex, version, versionFixValue)
-  generateHexFixValue(calculateCRCArray, version, versionFixValue)
+  // generateHexFixValue(calculateCRCArray, version, versionFixValue)
 
+  // mapType 1
   arrCsvContentHex.push(mapType.charCodeAt())
+  // reserved 1
   arrCsvContentHex.push(parseInt(reservedFixValue, 10))
-  calculateCRCArray.push(mapType.charCodeAt())
-  calculateCRCArray.push(parseInt(reservedFixValue, 10))
+
+  // calculateCRCArray.push(mapType.charCodeAt())
+  // calculateCRCArray.push(parseInt(reservedFixValue, 10))
+  // console.log(calculateCRCArray)
 
   console.log(arrCsvContentHex)
 
@@ -75,76 +83,97 @@ export default function useFile() {
     const port = (item.Port || '').split('')
 
     parseIntValue(arrCsvContentHex, seq)
-    parseIntValue(calculateCRCArray, seq)
+    // parseIntValue(calculateCRCArray, seq)
     if (seq.length < SEQ_MAX_BYTE) {
       arrCsvContentHex.push(parseInt(0, 10))
-      calculateCRCArray.push(parseInt(0, 10))
+      // calculateCRCArray.push(parseInt(0, 10))
     }
     childStructureArr.push(Number(seq))
+    // console.log(calculateCRCArray)
+    console.log(arrCsvContentHex)
 
     charCodeAtValue(arrCsvContentHex, deviceId)
-    charCodeAtValue(calculateCRCArray, deviceId)
+    // charCodeAtValue(calculateCRCArray, deviceId)
     if (deviceId.length < DEVICE_MAX_BYTE) {
       for (let i = 0; i < DEVICE_MAX_BYTE - deviceId.length; i++) {
         arrCsvContentHex.push(parseInt(0, 10))
-        calculateCRCArray.push(parseInt(0, 10))
+        // calculateCRCArray.push(parseInt(0, 10))
       }
     }
 
     if (!isNaN(tagCode)) {
       extendsAsciiValue(arrCsvContentHex, tagCode)
-      extendsAsciiValue(calculateCRCArray, tagCode)
+      // extendsAsciiValue(calculateCRCArray, tagCode)
     }
+
+    // console.log(calculateCRCArray)
+    console.log(arrCsvContentHex)
 
     parseIntValue(arrCsvContentHex, reqSet)
     parseIntValue(arrCsvContentHex, func)
     parseIntValue(arrCsvContentHex, unitId)
     parseIntValue(arrCsvContentHex, reserved)
 
-    parseIntValue(calculateCRCArray, reqSet)
-    parseIntValue(calculateCRCArray, func)
-    parseIntValue(calculateCRCArray, unitId)
-    parseIntValue(calculateCRCArray, reserved)
+    // parseIntValue(calculateCRCArray, reqSet)
+    // parseIntValue(calculateCRCArray, func)
+    // parseIntValue(calculateCRCArray, unitId)
+    // parseIntValue(calculateCRCArray, reserved)
+
+    // console.log(calculateCRCArray)
+    console.log(arrCsvContentHex)
 
     byteLengthValue(arrCsvContentHex, address)
-    byteLengthValue(calculateCRCArray, address)
+    // byteLengthValue(calculateCRCArray, address)
 
     charCodeAtValue(arrCsvContentHex, endian)
-    charCodeAtValue(calculateCRCArray, endian)
+    // charCodeAtValue(calculateCRCArray, endian)
 
     parseIntValue(arrCsvContentHex, wordcnt)
-    parseIntValue(calculateCRCArray, wordcnt)
+    // parseIntValue(calculateCRCArray, wordcnt)
 
     formatValue(arrCsvContentHex, format)
-    formatValue(calculateCRCArray, format)
+    // formatValue(calculateCRCArray, format)
 
     floatHexValue(arrCsvContentHex, scale)
-    floatHexValue(calculateCRCArray, scale)
+    // floatHexValue(calculateCRCArray, scale)
 
     parseIntValue(arrCsvContentHex, useFlag)
     parseIntValue(arrCsvContentHex, port)
 
-    parseIntValue(calculateCRCArray, useFlag)
-    parseIntValue(calculateCRCArray, port)
+    // parseIntValue(calculateCRCArray, useFlag)
+    // parseIntValue(calculateCRCArray, port)
   })
   const childStructureValue = Math.max(...childStructureArr)
-  const msgLength =
-    (4 + 16 + 4 + 1 + 1 + 1 + 4 + 1 + 1 + 1 + 8 + 1 + 1) * childStructureValue
+  const msgLength = MSGLENGTH_ONE * childStructureValue
   arrCsvContentHex.splice(62, 0, msgLength)
-  arrCsvContentHex.splice(63, 0, Number(childStructureValue))
+  if (String(msgLength).length < 4) {
+    arrCsvContentHex.splice(63, 0, parseInt(0, 10))
+  }
 
-  calculateCRCArray.splice(52, 0, msgLength)
-  calculateCRCArray.splice(53, 0, Number(childStructureValue))
+  arrCsvContentHex.splice(64, 0, parseInt(childStructureValue, 10))
+  if (String(childStructureValue).length < 4) {
+    arrCsvContentHex.splice(65, 0, parseInt(0, 10))
+  }
+
+  // calculateCRCArray.splice(52, 0, msgLength)
+  // calculateCRCArray.splice(53, 0, Number(childStructureValue))
+
+  // console.log(calculateCRCArray)
+  console.log(arrCsvContentHex)
+
   // TODO: CRC값 계산해서 넣기
   // modbus 16type
-  const modbus = crc16(Uint8Array.from(calculateCRCArray))
-  arrCsvContentHex.splice(64, 0, modbus)
-  // TODO: 모두 다 끝나고 찍히는 0 제거하기
-  arrCsvContentHex.splice(97, 141)
-  console.log(arrCsvContentHex)
-  console.log(calculateCRCArray)
+  // const modbus = crc16(Uint8Array.from(calculateCRCArray))
+  // arrCsvContentHex.splice(64, 0, modbus)
+  // console.log(modbus);
 
-  generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
+  // TODO: 모두 다 끝나고 찍히는 0 제거하기
+  // arrCsvContentHex.splice(97, 141)
+  // console.log(arrCsvContentHex)
+  // console.log(calculateCRCArray)
+
+  // generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
+  // console.log(arrCsvContentHex)
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
