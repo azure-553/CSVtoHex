@@ -27,7 +27,7 @@ import {
   MSGLENGTH_ONE,
 } from '../constants'
 import generateBlob from '../utils/generateBlob'
-// import { crc16 } from '../utils/crc16'
+import { crc16 } from '../utils/crc16'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -60,9 +60,8 @@ export default function useFile() {
 
   calculateCRCArray.push(mapType.charCodeAt())
   calculateCRCArray.push(parseInt(reservedFixValue, 10))
-  console.log(calculateCRCArray)
-
-  console.log(arrCsvContentHex)
+  // console.log(calculateCRCArray)
+  // console.log(arrCsvContentHex)
 
   let childStructureArr = []
 
@@ -89,8 +88,8 @@ export default function useFile() {
       calculateCRCArray.push(parseInt(0, 10))
     }
     childStructureArr.push(Number(seq))
-    console.log(calculateCRCArray)
-    console.log(arrCsvContentHex)
+    // console.log(calculateCRCArray)
+    // console.log(arrCsvContentHex)
 
     charCodeAtValue(arrCsvContentHex, deviceId)
     charCodeAtValue(calculateCRCArray, deviceId)
@@ -106,8 +105,8 @@ export default function useFile() {
       extendsAsciiValue(calculateCRCArray, tagCode)
     }
 
-    console.log(calculateCRCArray)
-    console.log(arrCsvContentHex)
+    // console.log(calculateCRCArray)
+    // console.log(arrCsvContentHex)
 
     parseIntValue(arrCsvContentHex, reqSet)
     parseIntValue(arrCsvContentHex, func)
@@ -119,8 +118,8 @@ export default function useFile() {
     parseIntValue(calculateCRCArray, unitId)
     parseIntValue(calculateCRCArray, reserved)
 
-    console.log(calculateCRCArray)
-    console.log(arrCsvContentHex)
+    // console.log(calculateCRCArray)
+    // console.log(arrCsvContentHex)
 
     byteLengthValue(arrCsvContentHex, address)
     byteLengthValue(calculateCRCArray, address)
@@ -144,8 +143,8 @@ export default function useFile() {
     parseIntValue(calculateCRCArray, port)
   })
 
-  console.log(arrCsvContentHex);
-  console.log(calculateCRCArray);
+  // console.log(arrCsvContentHex);
+  // console.log(calculateCRCArray);
 
   const childStructureValue = Math.max(...childStructureArr)
   const msgLength = MSGLENGTH_ONE * childStructureValue
@@ -170,18 +169,19 @@ export default function useFile() {
     calculateCRCArray.splice(65, 0, parseInt(0, 10))
   }
 
-  console.log(calculateCRCArray)
-  console.log(arrCsvContentHex)
+  // console.log(calculateCRCArray)
+  console.log(arrCsvContentHex.length)
 
   // TODO: CRC값 계산해서 넣기
   // modbus 16type
-  // const modbus = crc16(Uint8Array.from(calculateCRCArray))
-  // arrCsvContentHex.splice(64, 0, modbus)
+  // const modbus = crc16(Uint8Array.from(calculateCRCArray)).toString(16)
   // console.log(modbus);
+  // arrCsvContentHex.splice(64, 0, modbus)
 
   // TODO: 모두 다 끝나고 찍히는 0 제거하기
-  // arrCsvContentHex.splice(97, 141)
-  // console.log(arrCsvContentHex)
+  console.log(arrCsvContentHex)
+  // arrCsvContentHex.splice(101, 141)
+  console.log(arrCsvContentHex)
   // console.log(calculateCRCArray)
 
   // generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
