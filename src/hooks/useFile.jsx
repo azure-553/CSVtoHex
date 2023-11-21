@@ -47,20 +47,20 @@ export default function useFile() {
 
   // username 40
   generateHexFixValue(arrCsvContentHex, username, usernameFixValue)
-  // generateHexFixValue(calculateCRCArray, username, usernameFixValue)
+  generateHexFixValue(calculateCRCArray, username, usernameFixValue)
 
   // version 10
   generateHexFixValue(arrCsvContentHex, version, versionFixValue)
-  // generateHexFixValue(calculateCRCArray, version, versionFixValue)
+  generateHexFixValue(calculateCRCArray, version, versionFixValue)
 
   // mapType 1
   arrCsvContentHex.push(mapType.charCodeAt())
   // reserved 1
   arrCsvContentHex.push(parseInt(reservedFixValue, 10))
 
-  // calculateCRCArray.push(mapType.charCodeAt())
-  // calculateCRCArray.push(parseInt(reservedFixValue, 10))
-  // console.log(calculateCRCArray)
+  calculateCRCArray.push(mapType.charCodeAt())
+  calculateCRCArray.push(parseInt(reservedFixValue, 10))
+  console.log(calculateCRCArray)
 
   console.log(arrCsvContentHex)
 
@@ -83,30 +83,30 @@ export default function useFile() {
     const port = (item.Port || '').split('')
 
     parseIntValue(arrCsvContentHex, seq)
-    // parseIntValue(calculateCRCArray, seq)
+    parseIntValue(calculateCRCArray, seq)
     if (seq.length < SEQ_MAX_BYTE) {
       arrCsvContentHex.push(parseInt(0, 10))
-      // calculateCRCArray.push(parseInt(0, 10))
+      calculateCRCArray.push(parseInt(0, 10))
     }
     childStructureArr.push(Number(seq))
-    // console.log(calculateCRCArray)
+    console.log(calculateCRCArray)
     console.log(arrCsvContentHex)
 
     charCodeAtValue(arrCsvContentHex, deviceId)
-    // charCodeAtValue(calculateCRCArray, deviceId)
+    charCodeAtValue(calculateCRCArray, deviceId)
     if (deviceId.length < DEVICE_MAX_BYTE) {
       for (let i = 0; i < DEVICE_MAX_BYTE - deviceId.length; i++) {
         arrCsvContentHex.push(parseInt(0, 10))
-        // calculateCRCArray.push(parseInt(0, 10))
+        calculateCRCArray.push(parseInt(0, 10))
       }
     }
 
     if (!isNaN(tagCode)) {
       extendsAsciiValue(arrCsvContentHex, tagCode)
-      // extendsAsciiValue(calculateCRCArray, tagCode)
+      extendsAsciiValue(calculateCRCArray, tagCode)
     }
 
-    // console.log(calculateCRCArray)
+    console.log(calculateCRCArray)
     console.log(arrCsvContentHex)
 
     parseIntValue(arrCsvContentHex, reqSet)
@@ -114,37 +114,42 @@ export default function useFile() {
     parseIntValue(arrCsvContentHex, unitId)
     parseIntValue(arrCsvContentHex, reserved)
 
-    // parseIntValue(calculateCRCArray, reqSet)
-    // parseIntValue(calculateCRCArray, func)
-    // parseIntValue(calculateCRCArray, unitId)
-    // parseIntValue(calculateCRCArray, reserved)
+    parseIntValue(calculateCRCArray, reqSet)
+    parseIntValue(calculateCRCArray, func)
+    parseIntValue(calculateCRCArray, unitId)
+    parseIntValue(calculateCRCArray, reserved)
 
-    // console.log(calculateCRCArray)
+    console.log(calculateCRCArray)
     console.log(arrCsvContentHex)
 
     byteLengthValue(arrCsvContentHex, address)
-    // byteLengthValue(calculateCRCArray, address)
+    byteLengthValue(calculateCRCArray, address)
 
     charCodeAtValue(arrCsvContentHex, endian)
-    // charCodeAtValue(calculateCRCArray, endian)
+    charCodeAtValue(calculateCRCArray, endian)
 
     parseIntValue(arrCsvContentHex, wordcnt)
-    // parseIntValue(calculateCRCArray, wordcnt)
+    parseIntValue(calculateCRCArray, wordcnt)
 
     formatValue(arrCsvContentHex, format)
-    // formatValue(calculateCRCArray, format)
+    formatValue(calculateCRCArray, format)
 
     floatHexValue(arrCsvContentHex, scale)
-    // floatHexValue(calculateCRCArray, scale)
+    floatHexValue(calculateCRCArray, scale)
 
     parseIntValue(arrCsvContentHex, useFlag)
     parseIntValue(arrCsvContentHex, port)
 
-    // parseIntValue(calculateCRCArray, useFlag)
-    // parseIntValue(calculateCRCArray, port)
+    parseIntValue(calculateCRCArray, useFlag)
+    parseIntValue(calculateCRCArray, port)
   })
+
+  console.log(arrCsvContentHex);
+  console.log(calculateCRCArray);
+
   const childStructureValue = Math.max(...childStructureArr)
   const msgLength = MSGLENGTH_ONE * childStructureValue
+
   arrCsvContentHex.splice(62, 0, msgLength)
   if (String(msgLength).length < 4) {
     arrCsvContentHex.splice(63, 0, parseInt(0, 10))
@@ -155,10 +160,17 @@ export default function useFile() {
     arrCsvContentHex.splice(65, 0, parseInt(0, 10))
   }
 
-  // calculateCRCArray.splice(52, 0, msgLength)
-  // calculateCRCArray.splice(53, 0, Number(childStructureValue))
+  calculateCRCArray.splice(52, 0, msgLength)
+  if (String(msgLength).length < 4) {
+    calculateCRCArray.splice(53, 0, parseInt(0, 10))
+  }
 
-  // console.log(calculateCRCArray)
+  calculateCRCArray.splice(54, 0, parseInt(childStructureValue, 10))
+  if (String(childStructureValue).length < 4) {
+    calculateCRCArray.splice(65, 0, parseInt(0, 10))
+  }
+
+  console.log(calculateCRCArray)
   console.log(arrCsvContentHex)
 
   // TODO: CRC값 계산해서 넣기
@@ -174,6 +186,7 @@ export default function useFile() {
 
   // generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
   // console.log(arrCsvContentHex)
+  // console.log(calculateCRCArray)
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
