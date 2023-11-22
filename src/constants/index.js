@@ -3,6 +3,7 @@ export const SEQ_MAX_BYTE = 2
 export const DEVICE_MAX_BYTE = 16
 export const SUGGEST_FILENAME = 'MCFG_NEW_HEAT.MBC'
 export const MSGLENGTH_ONE = 40
+export const SCALE_MAX_BYTE = 4
 
 export const ERROR = Object.freeze({
   SAVE: '[ERROR] 파일을 저장해주세요.',

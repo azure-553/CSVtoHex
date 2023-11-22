@@ -25,6 +25,7 @@ import {
   SEQ_MAX_BYTE,
   SUGGEST_FILENAME,
   MSGLENGTH_ONE,
+  SCALE_MAX_BYTE,
 } from '../constants'
 import generateBlob from '../utils/generateBlob'
 import { crc16 } from '../utils/crc16'
@@ -135,6 +136,10 @@ export default function useFile() {
 
     floatHexValue(arrCsvContentHex, scale)
     floatHexValue(calculateCRCArray, scale)
+    for (let i = 0; i < SCALE_MAX_BYTE; i++) {
+      arrCsvContentHex.push(parseInt(0, 10))
+      calculateCRCArray.push(parseInt(0, 10))
+    }
 
     parseIntValue(arrCsvContentHex, useFlag)
     parseIntValue(arrCsvContentHex, port)
