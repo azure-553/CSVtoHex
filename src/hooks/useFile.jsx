@@ -10,6 +10,7 @@ import {
   generateBlob,
   calculateCRCValue,
   csvToJSON,
+  splitValue,
 } from '../utils'
 import {
   header,
@@ -53,20 +54,20 @@ export default function useFile() {
   hexValueArr.push(parseInt(reservedFixValue, 10))
 
   csvContent.map((item) => {
-    const seq = (item.seq || '').split('')
-    const deviceId = (item.device_id || '').split('')
+    const seq = splitValue(item.seq)
+    const deviceId = splitValue(item.device_id)
     const tagCode = item.tag_code
-    const reqSet = (item.req_set || '').split('')
-    const func = (item.func || '').split('')
-    const unitId = (item.unit_id || '').split('')
-    const reserved = (item.Reserved || '').split('')
+    const reqSet = splitValue(item.req_set)
+    const func = splitValue(item.func)
+    const unitId = splitValue(item.unit_id)
+    const reserved = splitValue(item.Reserved)
     const address = item.address
-    const endian = (item.endian || '').split('')
-    const wordcnt = (item.wordcnt || '').split('')
+    const endian = splitValue(item.endian)
+    const wordcnt = splitValue(item.wordcnt)
     const format = item.format
     const scale = item.scale
-    const useFlag = (item.Use_flag || '').split('')
-    const port = (item.Port || '').split('')
+    const useFlag = splitValue(item.Use_flag)
+    const port = splitValue(item.Port)
 
     parseIntValue(hexValueArr, seq)
     if (seq.length < SEQ_MAX_BYTE) {
