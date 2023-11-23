@@ -1,5 +1,16 @@
 import { useState } from 'react'
-import csvToJSON from '../utils/csvToJson'
+import {
+  generateHexFixValue,
+  parseIntValue,
+  extendsAsciiValue,
+  charCodeAtValue,
+  formatValue,
+  floatHexValue,
+  byteLengthValue,
+  generateBlob,
+  calculateCRCValue,
+  csvToJSON,
+} from '../utils'
 import {
   header,
   headerFixValue,
@@ -12,13 +23,6 @@ import {
   finish,
   finishFixValue,
 } from '../utils/fixValue'
-import generateHexFixValue from '../utils/generateHexFixValue'
-import parseIntValue from '../utils/parseIntValue'
-import extendsAsciiValue from '../utils/extendsAsciiValue'
-import charCodeAtValue from '../utils/charCodeAtValue'
-import formatValue from '../utils/formatValue'
-import floatHexValue from '../utils/floatHexValue'
-import byteLengthValue from '../utils/byteLengthValue'
 import {
   DEVICE_MAX_BYTE,
   ERROR,
@@ -27,8 +31,6 @@ import {
   MSGLENGTH_ONE,
   SCALE_MAX_BYTE,
 } from '../constants'
-import generateBlob from '../utils/generateBlob'
-import calculateCRCValue from '../utils/calculateCRCValue'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -43,16 +45,11 @@ export default function useFile() {
   const arrCsvContentHex = []
   const childStructureArr = []
 
-  // header 10
   generateHexFixValue(arrCsvContentHex, header, headerFixValue)
-  // username 40
   generateHexFixValue(arrCsvContentHex, username, usernameFixValue)
-  // version 10
   generateHexFixValue(arrCsvContentHex, version, versionFixValue)
 
-  // mapType 1
   arrCsvContentHex.push(mapType.charCodeAt())
-  // reserved 1
   arrCsvContentHex.push(parseInt(reservedFixValue, 10))
 
   csvContent.map((item) => {
