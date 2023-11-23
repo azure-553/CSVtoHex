@@ -152,7 +152,6 @@ export default function useFile() {
   }
 
   const handleFileChange = () => {
-    console.log('FileChangeBtn Clicked')
     setIsFile(true)
     setIsLoading(true)
     setTimeout(() => {
@@ -163,7 +162,6 @@ export default function useFile() {
 
   const handleFileDownload = async () => {
     try {
-      console.log('FileDownBtn Clicked')
       const fileHandle = await window.showSaveFilePicker({
         suggestedName: SUGGEST_FILENAME,
       })
