@@ -42,15 +42,15 @@ export default function useFile() {
   const stringUploadInfo = String(uploadedInfo)
   let csvContent = csvToJSON(stringUploadInfo)
 
-  const arrCsvContentHex = []
+  const hexValueArr = []
   const childStructureArr = []
 
-  generateHexFixValue(arrCsvContentHex, header, headerFixValue)
-  generateHexFixValue(arrCsvContentHex, username, usernameFixValue)
-  generateHexFixValue(arrCsvContentHex, version, versionFixValue)
+  generateHexFixValue(hexValueArr, header, headerFixValue)
+  generateHexFixValue(hexValueArr, username, usernameFixValue)
+  generateHexFixValue(hexValueArr, version, versionFixValue)
 
-  arrCsvContentHex.push(mapType.charCodeAt())
-  arrCsvContentHex.push(parseInt(reservedFixValue, 10))
+  hexValueArr.push(mapType.charCodeAt())
+  hexValueArr.push(parseInt(reservedFixValue, 10))
 
   csvContent.map((item) => {
     const seq = (item.seq || '').split('')
@@ -68,57 +68,57 @@ export default function useFile() {
     const useFlag = (item.Use_flag || '').split('')
     const port = (item.Port || '').split('')
 
-    parseIntValue(arrCsvContentHex, seq)
+    parseIntValue(hexValueArr, seq)
     if (seq.length < SEQ_MAX_BYTE) {
-      arrCsvContentHex.push(parseInt(0, 10))
+      hexValueArr.push(parseInt(0, 10))
     }
     childStructureArr.push(Number(seq))
 
-    charCodeAtValue(arrCsvContentHex, deviceId)
+    charCodeAtValue(hexValueArr, deviceId)
     if (deviceId.length < DEVICE_MAX_BYTE) {
       for (let i = 0; i < DEVICE_MAX_BYTE - deviceId.length; i++) {
-        arrCsvContentHex.push(parseInt(0, 10))
+        hexValueArr.push(parseInt(0, 10))
       }
     }
 
     if (!isNaN(tagCode)) {
-      extendsAsciiValue(arrCsvContentHex, tagCode)
+      extendsAsciiValue(hexValueArr, tagCode)
     }
 
-    parseIntValue(arrCsvContentHex, reqSet)
-    parseIntValue(arrCsvContentHex, func)
-    parseIntValue(arrCsvContentHex, unitId)
-    parseIntValue(arrCsvContentHex, reserved)
+    parseIntValue(hexValueArr, reqSet)
+    parseIntValue(hexValueArr, func)
+    parseIntValue(hexValueArr, unitId)
+    parseIntValue(hexValueArr, reserved)
 
-    byteLengthValue(arrCsvContentHex, address)
-    charCodeAtValue(arrCsvContentHex, endian)
-    parseIntValue(arrCsvContentHex, wordcnt)
-    formatValue(arrCsvContentHex, format)
+    byteLengthValue(hexValueArr, address)
+    charCodeAtValue(hexValueArr, endian)
+    parseIntValue(hexValueArr, wordcnt)
+    formatValue(hexValueArr, format)
 
-    floatHexValue(arrCsvContentHex, scale)
+    floatHexValue(hexValueArr, scale)
     for (let i = 0; i < SCALE_MAX_BYTE; i++) {
-      arrCsvContentHex.push(parseInt(0, 10))
+      hexValueArr.push(parseInt(0, 10))
     }
 
-    parseIntValue(arrCsvContentHex, useFlag)
-    parseIntValue(arrCsvContentHex, port)
+    parseIntValue(hexValueArr, useFlag)
+    parseIntValue(hexValueArr, port)
   })
 
   const childStructureValue = Math.max(...childStructureArr)
   const msgLength = MSGLENGTH_ONE * childStructureValue
 
-  arrCsvContentHex.splice(62, 0, msgLength)
+  hexValueArr.splice(62, 0, msgLength)
   if (String(msgLength).length < 4) {
-    arrCsvContentHex.splice(63, 0, parseInt(0, 10))
+    hexValueArr.splice(63, 0, parseInt(0, 10))
   }
 
-  arrCsvContentHex.splice(64, 0, parseInt(childStructureValue, 10))
+  hexValueArr.splice(64, 0, parseInt(childStructureValue, 10))
   if (String(childStructureValue).length < 4) {
-    arrCsvContentHex.splice(65, 0, parseInt(0, 10))
+    hexValueArr.splice(65, 0, parseInt(0, 10))
   }
 
-  calculateCRCValue(arrCsvContentHex)
-  generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
+  calculateCRCValue(hexValueArr)
+  generateHexFixValue(hexValueArr, finish, finishFixValue)
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
@@ -168,8 +168,7 @@ export default function useFile() {
         suggestedName: SUGGEST_FILENAME,
       })
       const fileStream = await fileHandle.createWritable()
-
-      await fileStream.write(generateBlob(arrCsvContentHex))
+      await fileStream.write(generateBlob(hexValueArr))
       await fileStream.close()
     } catch (error) {
       alert(ERROR.SAVE)
