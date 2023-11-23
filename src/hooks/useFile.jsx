@@ -28,7 +28,7 @@ import {
   SCALE_MAX_BYTE,
 } from '../constants'
 import generateBlob from '../utils/generateBlob'
-import { crc16 } from '../utils/crc16'
+import calculateCRCValue from '../utils/calculateCRCValue'
 
 export default function useFile() {
   const [isActive, setActive] = useState(false)
@@ -40,31 +40,20 @@ export default function useFile() {
   const stringUploadInfo = String(uploadedInfo)
   let csvContent = csvToJSON(stringUploadInfo)
 
-  let arrCsvContentHex = []
-  let calculateCRCArray = []
+  const arrCsvContentHex = []
+  const childStructureArr = []
 
   // header 10
   generateHexFixValue(arrCsvContentHex, header, headerFixValue)
-
   // username 40
   generateHexFixValue(arrCsvContentHex, username, usernameFixValue)
-  generateHexFixValue(calculateCRCArray, username, usernameFixValue)
-
   // version 10
   generateHexFixValue(arrCsvContentHex, version, versionFixValue)
-  generateHexFixValue(calculateCRCArray, version, versionFixValue)
 
   // mapType 1
   arrCsvContentHex.push(mapType.charCodeAt())
   // reserved 1
   arrCsvContentHex.push(parseInt(reservedFixValue, 10))
-
-  calculateCRCArray.push(mapType.charCodeAt())
-  calculateCRCArray.push(parseInt(reservedFixValue, 10))
-  // console.log(calculateCRCArray)
-  // console.log(arrCsvContentHex)
-
-  let childStructureArr = []
 
   csvContent.map((item) => {
     const seq = (item.seq || '').split('')
@@ -83,73 +72,40 @@ export default function useFile() {
     const port = (item.Port || '').split('')
 
     parseIntValue(arrCsvContentHex, seq)
-    parseIntValue(calculateCRCArray, seq)
     if (seq.length < SEQ_MAX_BYTE) {
       arrCsvContentHex.push(parseInt(0, 10))
-      calculateCRCArray.push(parseInt(0, 10))
     }
     childStructureArr.push(Number(seq))
-    // console.log(calculateCRCArray)
-    // console.log(arrCsvContentHex)
 
     charCodeAtValue(arrCsvContentHex, deviceId)
-    charCodeAtValue(calculateCRCArray, deviceId)
     if (deviceId.length < DEVICE_MAX_BYTE) {
       for (let i = 0; i < DEVICE_MAX_BYTE - deviceId.length; i++) {
         arrCsvContentHex.push(parseInt(0, 10))
-        calculateCRCArray.push(parseInt(0, 10))
       }
     }
 
     if (!isNaN(tagCode)) {
       extendsAsciiValue(arrCsvContentHex, tagCode)
-      extendsAsciiValue(calculateCRCArray, tagCode)
     }
-
-    // console.log(calculateCRCArray)
-    // console.log(arrCsvContentHex)
 
     parseIntValue(arrCsvContentHex, reqSet)
     parseIntValue(arrCsvContentHex, func)
     parseIntValue(arrCsvContentHex, unitId)
     parseIntValue(arrCsvContentHex, reserved)
 
-    parseIntValue(calculateCRCArray, reqSet)
-    parseIntValue(calculateCRCArray, func)
-    parseIntValue(calculateCRCArray, unitId)
-    parseIntValue(calculateCRCArray, reserved)
-
-    // console.log(calculateCRCArray)
-    // console.log(arrCsvContentHex)
-
     byteLengthValue(arrCsvContentHex, address)
-    byteLengthValue(calculateCRCArray, address)
-
     charCodeAtValue(arrCsvContentHex, endian)
-    charCodeAtValue(calculateCRCArray, endian)
-
     parseIntValue(arrCsvContentHex, wordcnt)
-    parseIntValue(calculateCRCArray, wordcnt)
-
     formatValue(arrCsvContentHex, format)
-    formatValue(calculateCRCArray, format)
 
     floatHexValue(arrCsvContentHex, scale)
-    floatHexValue(calculateCRCArray, scale)
     for (let i = 0; i < SCALE_MAX_BYTE; i++) {
       arrCsvContentHex.push(parseInt(0, 10))
-      calculateCRCArray.push(parseInt(0, 10))
     }
 
     parseIntValue(arrCsvContentHex, useFlag)
     parseIntValue(arrCsvContentHex, port)
-
-    parseIntValue(calculateCRCArray, useFlag)
-    parseIntValue(calculateCRCArray, port)
   })
-
-  // console.log(arrCsvContentHex);
-  // console.log(calculateCRCArray);
 
   const childStructureValue = Math.max(...childStructureArr)
   const msgLength = MSGLENGTH_ONE * childStructureValue
@@ -164,34 +120,8 @@ export default function useFile() {
     arrCsvContentHex.splice(65, 0, parseInt(0, 10))
   }
 
-  calculateCRCArray.splice(52, 0, msgLength)
-  if (String(msgLength).length < 4) {
-    calculateCRCArray.splice(53, 0, parseInt(0, 10))
-  }
-
-  calculateCRCArray.splice(54, 0, parseInt(childStructureValue, 10))
-  if (String(childStructureValue).length < 4) {
-    calculateCRCArray.splice(65, 0, parseInt(0, 10))
-  }
-
-  // console.log(calculateCRCArray)
-  console.log(arrCsvContentHex.length)
-
-  // TODO: CRC값 계산해서 넣기
-  // modbus 16type
-  // const modbus = crc16(Uint8Array.from(calculateCRCArray)).toString(16)
-  // console.log(modbus);
-  // arrCsvContentHex.splice(64, 0, modbus)
-
-  // TODO: 모두 다 끝나고 찍히는 0 제거하기
-  console.log(arrCsvContentHex)
-  // arrCsvContentHex.splice(101, 141)
-  console.log(arrCsvContentHex)
-  // console.log(calculateCRCArray)
-
-  // generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
-  // console.log(arrCsvContentHex)
-  // console.log(calculateCRCArray)
+  calculateCRCValue(arrCsvContentHex)
+  generateHexFixValue(arrCsvContentHex, finish, finishFixValue)
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
