@@ -28,7 +28,7 @@
   },
   "scripts": {
     "start:electron": "electron .",
-    "start:react": "react-scripts start",
+    "start:react": "export PORT=5001 && react-scripts start",
     "build:react": "react-scripts build",
     "test:react": "react-scripts test",
     "eject:react": "react-scripts eject"
