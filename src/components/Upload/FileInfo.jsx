@@ -30,7 +30,7 @@ const InfoBox = styled.ul`
   list-style: none;
   padding-top: 40px;
 
-  overflow: hidden; // 을 사용해 영역을 감출 것
-  text-overflow: ellipsis; // 로 ... 을 만들기
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 `
