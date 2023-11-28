@@ -7,5 +7,6 @@ export const SCALE_MAX_BYTE = 4
 
 export const ERROR = Object.freeze({
   SAVE: '[ERROR] 파일을 저장해주세요.',
-  CHOOSE: '[ERROR] 파일을 선택해주세요.'
+  CHOOSE: '[ERROR] 파일을 선택해주세요.',
+  DATA:'[ERROR] 파일에 데이터가 존재하지 않습니다.'
 })
