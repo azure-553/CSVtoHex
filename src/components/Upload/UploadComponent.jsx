@@ -33,7 +33,7 @@ const UploadComponent = () => {
         isActive={isActive}
       >
         <FileInput type="file" onChange={handleUpload} accept=".csv" />
-        <FileInfo uploadedInfo={uploadedInfo}/>
+        <FileInfo uploadedInfo={uploadedInfo} />
         {isLoading && <Loading />}
         {!uploadedInfo && (
           <React.Fragment>
@@ -50,12 +50,15 @@ const UploadComponent = () => {
           onClick={handleFileChange}
           disabled={isFile}
         />
-        <FileBtn
-          text="파일 다운로드"
-          type="button"
-          onClick={handleFileDownload}
-          disabled={isChanged}
-        />
+        <div>
+          <FileBtn
+            text="파일 다운로드"
+            type="button"
+            onClick={handleFileDownload}
+            disabled={isChanged}
+          />
+          <a disabled={isChanged} style={{ display: 'none' }}></a>
+        </div>
       </BtnWrap>
     </div>
   )
