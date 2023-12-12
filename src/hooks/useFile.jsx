@@ -123,14 +123,7 @@ export default function useFile() {
 
   const handleDragStart = () => setActive(true)
   const handleDragEnd = () => setActive(false)
-  const handleDragOver = (e) => {
-    e.preventDefault()
-    const file = e.dataTransfer.files[0]
-    if (!setFileInfo(file)) {
-      alert(ERROR.DATA)
-      return setActive(false)
-    }
-  }
+  const handleDragOver = (e) => e.preventDefault()
 
   const setFileInfo = (file) => {
     try {
@@ -145,26 +138,35 @@ export default function useFile() {
   }
 
   const handleDrop = (e) => {
-    e.preventDefault()
-    setActive(false)
+    try {
+      e.preventDefault()
+      setActive(false)
 
-    const file = e.dataTransfer.files[0]
-    setFileInfo(file)
-    setIsFile(false)
-    if (!setFileInfo(file)) {
+      const file = e.dataTransfer.files[0]
+      setFileInfo(file)
+      setIsFile(false)
+      if (file.size === 0) {
+        alert(ERROR.DATA)
+        return setActive(false)
+      }
+    } catch (error) {
       alert(ERROR.DATA)
-      return setActive(false)
     }
   }
 
   const handleUpload = ({ target }) => {
-    const file = target.files[0]
-    setFileInfo(file)
-    if (!setFileInfo(file)) {
+    try {
+      const file = target.files[0]
+      setFileInfo(file)
+      console.log(file)
+      if (file.size === 0) {
+        alert(ERROR.DATA)
+        return setActive(false)
+      }
+      setIsFile(false)
+    } catch (error) {
       alert(ERROR.DATA)
-      return setActive(false)
     }
-    setIsFile(false)
   }
 
   const handleFileChange = () => {
