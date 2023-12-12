@@ -125,11 +125,11 @@ export default function useFile() {
   const handleDragEnd = () => setActive(false)
   const handleDragOver = (e) => {
     e.preventDefault()
-    // const file = e.dataTransfer.files[0]
-    // if (!setFileInfo(file)) {
-    //   alert(ERROR.DATA)
-    //   return setActive(false)
-    // }
+    const file = e.dataTransfer.files[0]
+    if (!setFileInfo(file)) {
+      alert(ERROR.DATA)
+      return setActive(false)
+    }
   }
 
   const setFileInfo = (file) => {
@@ -151,19 +151,19 @@ export default function useFile() {
     const file = e.dataTransfer.files[0]
     setFileInfo(file)
     setIsFile(false)
-    // if (!setFileInfo(file)) {
-    //   alert(ERROR.DATA)
-    //   return setActive(false)
-    // }
+    if (!setFileInfo(file)) {
+      alert(ERROR.DATA)
+      return setActive(false)
+    }
   }
 
   const handleUpload = ({ target }) => {
     const file = target.files[0]
     setFileInfo(file)
-    // if (!setFileInfo(file)) {
-    //   alert(ERROR.DATA)
-    //   return setActive(false)
-    // }
+    if (!setFileInfo(file)) {
+      alert(ERROR.DATA)
+      return setActive(false)
+    }
     setIsFile(false)
   }
 
