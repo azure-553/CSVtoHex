@@ -125,11 +125,11 @@ export default function useFile() {
   const handleDragEnd = () => setActive(false)
   const handleDragOver = (e) => {
     e.preventDefault()
-    const file = e.dataTransfer.files[0]
-    if (!setFileInfo(file)) {
-      alert(ERROR.DATA)
-      return setActive(false)
-    }
+    // const file = e.dataTransfer.files[0]
+    // if (!setFileInfo(file)) {
+    //   alert(ERROR.DATA)
+    //   return setActive(false)
+    // }
   }
 
   const setFileInfo = (file) => {
@@ -151,19 +151,19 @@ export default function useFile() {
     const file = e.dataTransfer.files[0]
     setFileInfo(file)
     setIsFile(false)
-    if (!setFileInfo(file)) {
-      alert(ERROR.DATA)
-      return setActive(false)
-    }
+    // if (!setFileInfo(file)) {
+    //   alert(ERROR.DATA)
+    //   return setActive(false)
+    // }
   }
 
   const handleUpload = ({ target }) => {
     const file = target.files[0]
     setFileInfo(file)
-    if (!setFileInfo(file)) {
-      alert(ERROR.DATA)
-      return setActive(false)
-    }
+    // if (!setFileInfo(file)) {
+    //   alert(ERROR.DATA)
+    //   return setActive(false)
+    // }
     setIsFile(false)
   }
 
@@ -178,12 +178,14 @@ export default function useFile() {
 
   const handleFileDownload = async () => {
     try {
-      const fileHandle = await window.showSaveFilePicker({
-        suggestedName: SUGGEST_FILENAME,
-      })
-      const fileStream = await fileHandle.createWritable()
-      await fileStream.write(generateBlob(hexValueArr))
-      await fileStream.close()
+      let tempLink = document.createElement('a')
+      tempLink.setAttribute(
+        'href',
+        URL.createObjectURL(generateBlob(hexValueArr)),
+      )
+      tempLink.setAttribute('download', SUGGEST_FILENAME)
+      tempLink.click()
+      URL.revokeObjectURL(tempLink.href)
     } catch (error) {
       alert(ERROR.SAVE)
     }
