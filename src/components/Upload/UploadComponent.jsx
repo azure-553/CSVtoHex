@@ -1,11 +1,11 @@
-import React from 'react'
-import styled from 'styled-components'
-import { ReactComponent as Logo } from '../../assets/images/dropbox.svg'
-import { Body, Title } from '../../styles/font'
-import useFile from '../../hooks/useFile'
-import FileBtn from '../FileBtn'
-import { Loading } from '../Loading'
-import { FileInfo } from './FileInfo'
+import React from 'react';
+import styled from 'styled-components';
+import { ReactComponent as Logo } from '../../assets/images/dropbox.svg';
+import { Body, Title } from '../../styles/font';
+import useFile from '../../hooks/useFile';
+import FileBtn from '../FileBtn';
+import { Loading } from '../Loading';
+import { FileInfo } from './FileInfo';
 
 const UploadComponent = () => {
   const {
@@ -21,7 +21,7 @@ const UploadComponent = () => {
     handleUpload,
     handleFileChange,
     handleFileDownload,
-  } = useFile()
+  } = useFile();
 
   return (
     <div>
@@ -61,8 +61,8 @@ const UploadComponent = () => {
         </div>
       </BtnWrap>
     </div>
-  )
-}
+  );
+};
 
 const UploadBoxStyled = styled.label`
   margin-bottom: 45px;
@@ -89,7 +89,7 @@ const UploadBoxStyled = styled.label`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-`
+`;
 
 const FileInput = styled.input`
   display: none;
@@ -100,13 +100,13 @@ const FileInput = styled.input`
     padding: 4px 32px;
     cursor: pointer;
   }
-`
+`;
 
 const BtnWrap = styled.div`
   margin: 0 auto;
   width: 420px;
   display: flex;
   justify-content: space-between;
-`
+`;
 
-export default UploadComponent
+export default UploadComponent;

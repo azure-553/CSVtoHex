@@ -1,11 +1,11 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Title } from '../../styles/font'
-import csvToJSON from '../../utils/csvToJson'
+import React from 'react';
+import styled from 'styled-components';
+import { Title } from '../../styles/font';
+import csvToJSON from '../../utils/csvToJson';
 
 export const FileInfo = ({ uploadedInfo }) => {
-  const stringUploadInfo = String(uploadedInfo)
-  let csvContent = csvToJSON(stringUploadInfo)
+  const stringUploadInfo = String(uploadedInfo);
+  let csvContent = csvToJSON(stringUploadInfo);
 
   return (
     <InfoBox>
@@ -20,8 +20,8 @@ export const FileInfo = ({ uploadedInfo }) => {
         </React.Fragment>
       ))}
     </InfoBox>
-  )
-}
+  );
+};
 
 const InfoBox = styled.ul`
   width: 800px;
@@ -33,4 +33,4 @@ const InfoBox = styled.ul`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-`
+`;

@@ -1,3 +1,3 @@
 export default function splitValue(value) {
-    return (value || '').split('')
+  return (value || '').split('');
 }

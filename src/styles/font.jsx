@@ -1,5 +1,5 @@
-import { styled } from 'styled-components'
-import { theme } from './theme'
+import { styled } from 'styled-components';
+import { theme } from './theme';
 
 export const Title = styled.span`
   font-weight: ${({ weight }) => (weight ? weight : 600)};
@@ -8,7 +8,7 @@ export const Title = styled.span`
   font-style: normal;
   font-weight: 600;
   line-height: 150%; /* 30px */
-`
+`;
 
 export const CustomFont = styled.span`
   font-weight: ${({ weight }) => (weight ? weight : 500)};
@@ -18,7 +18,7 @@ export const CustomFont = styled.span`
   white-space: nowrap;
   font-weight: 500;
   line-height: 16px; /* 133.333% */
-`
+`;
 
 export const Body = styled.span`
   font-weight: ${({ weight }) => (weight ? weight : 500)};
@@ -28,7 +28,7 @@ export const Body = styled.span`
   font-style: normal;
   font-weight: 500;
   line-height: 160%; /* 25.6px */
-`
+`;
 
 export const ButtonText = styled.span`
   font-weight: ${({ weight }) => (weight ? weight : 500)};
@@ -37,4 +37,4 @@ export const ButtonText = styled.span`
   font-style: normal;
   font-weight: 500;
   line-height: 160%; /* 25.6px */
-`
+`;

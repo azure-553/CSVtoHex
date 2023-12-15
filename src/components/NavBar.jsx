@@ -1,9 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const NavBar = () => {
-  return <NavWrap />
-}
+  return <NavWrap />;
+};
 
 const NavWrap = styled.nav`
   width: 100%;
@@ -11,6 +11,6 @@ const NavWrap = styled.nav`
 
   background-color: ${({ theme }) => theme.colors.p500};
   border-bottom: 1px solid ${({ theme }) => theme.colors.yellow};
-`
+`;
 
-export default NavBar
+export default NavBar;

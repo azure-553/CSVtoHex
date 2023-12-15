@@ -8,4 +8,4 @@ export const formats = {
   formatF: 'F32',
   formatD: 'F64',
   formatB: 'BITS',
-}
+};

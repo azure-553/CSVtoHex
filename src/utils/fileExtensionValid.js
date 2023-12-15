@@ -1,9 +1,9 @@
-import { ALLOW_FILE_EXTENSION } from '../constants'
-import { removeFileName } from './removeFileName'
+import { ALLOW_FILE_EXTENSION } from '../constants';
+import { removeFileName } from './removeFileName';
 
 export const fileExtensionValid = ({ name }) => {
   // 파일 확장자
-  const extension = removeFileName(name)
+  const extension = removeFileName(name);
 
   /**
    * 허용가능한 확장자가 있는지 확인하는 부분은 indexOf를 사용해도 괜찮고,
@@ -18,7 +18,7 @@ export const fileExtensionValid = ({ name }) => {
     // 해당 if문이 수행되는 조건은
     // 1. 허용하지 않은 확장자일경우
     // 2. 확장자가 없는경우이다.
-    return false
+    return false;
   }
-  return true
-}
+  return true;
+};
