@@ -1,7 +1,7 @@
-import React from 'react'
-import GlobalStyle from './styles/GlobalStyle'
-import { BrowserRouter as Router } from 'react-router-dom'
-import MainRouter from './MainRouter'
+import React from 'react';
+import GlobalStyle from './styles/GlobalStyle';
+import { BrowserRouter as Router } from 'react-router-dom';
+import MainRouter from './MainRouter';
 
 const App = () => {
   return (
@@ -11,7 +11,7 @@ const App = () => {
         <MainRouter />
       </Router>
     </main>
-  )
-}
+  );
+};
 
-export default App
+export default App;

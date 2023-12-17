@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import {
   generateHexFixValue,
   parseIntValue,
@@ -11,7 +11,7 @@ import {
   calculateCRCValue,
   csvToJSON,
   splitValue,
-} from '../utils'
+} from '../utils';
 import {
   header,
   headerFixValue,
@@ -23,7 +23,7 @@ import {
   reservedFixValue,
   finish,
   finishFixValue,
-} from '../utils/fixValue'
+} from '../utils/fixValue';
 import {
   DEVICE_MAX_BYTE,
   ERROR,
@@ -31,167 +31,167 @@ import {
   SUGGEST_FILENAME,
   MSGLENGTH_ONE,
   SCALE_MAX_BYTE,
-} from '../constants'
+} from '../constants';
 
 export default function useFile() {
-  const [isActive, setActive] = useState(false)
-  const [uploadedInfo, setUploadedInfo] = useState(null)
-  const [isFile, setIsFile] = useState(true)
-  const [isChanged, setIsChanged] = useState(true)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isActive, setActive] = useState(false);
+  const [uploadedInfo, setUploadedInfo] = useState(null);
+  const [isFile, setIsFile] = useState(true);
+  const [isChanged, setIsChanged] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const stringUploadInfo = String(uploadedInfo)
-  let csvContent = csvToJSON(stringUploadInfo)
+  const stringUploadInfo = String(uploadedInfo);
+  let csvContent = csvToJSON(stringUploadInfo);
 
-  const hexValueArr = []
-  const childStructureArr = []
+  const hexValueArr = [];
+  const childStructureArr = [];
 
-  generateHexFixValue(hexValueArr, header, headerFixValue)
-  generateHexFixValue(hexValueArr, username, usernameFixValue)
-  generateHexFixValue(hexValueArr, version, versionFixValue)
+  generateHexFixValue(hexValueArr, header, headerFixValue);
+  generateHexFixValue(hexValueArr, username, usernameFixValue);
+  generateHexFixValue(hexValueArr, version, versionFixValue);
 
-  hexValueArr.push(mapType.charCodeAt())
-  hexValueArr.push(parseInt(reservedFixValue, 10))
+  hexValueArr.push(mapType.charCodeAt());
+  hexValueArr.push(parseInt(reservedFixValue, 10));
 
   csvContent.map((item) => {
-    const seq = splitValue(item.seq)
-    const deviceId = splitValue(item.device_id)
-    const tagCode = item.tag_code
-    const reqSet = splitValue(item.req_set)
-    const func = splitValue(item.func)
-    const unitId = splitValue(item.unit_id)
-    const reserved = splitValue(item.Reserved)
-    const address = item.address
-    const endian = splitValue(item.endian)
-    const wordcnt = splitValue(item.wordcnt)
-    const format = item.format
-    const scale = item.scale
-    const useFlag = splitValue(item.Use_flag)
-    const port = splitValue(item.Port)
+    const seq = splitValue(item.seq);
+    const deviceId = splitValue(item.device_id);
+    const tagCode = item.tag_code;
+    const reqSet = splitValue(item.req_set);
+    const func = splitValue(item.func);
+    const unitId = splitValue(item.unit_id);
+    const reserved = splitValue(item.Reserved);
+    const address = item.address;
+    const endian = splitValue(item.endian);
+    const wordcnt = splitValue(item.wordcnt);
+    const format = item.format;
+    const scale = item.scale;
+    const useFlag = splitValue(item.Use_flag);
+    const port = splitValue(item.Port);
 
-    parseIntValue(hexValueArr, seq)
+    parseIntValue(hexValueArr, seq);
     if (seq.length < SEQ_MAX_BYTE) {
-      hexValueArr.push(parseInt(0, 10))
+      hexValueArr.push(parseInt(0, 10));
     }
-    childStructureArr.push(Number(seq))
+    childStructureArr.push(Number(seq));
 
-    charCodeAtValue(hexValueArr, deviceId)
+    charCodeAtValue(hexValueArr, deviceId);
     if (deviceId.length < DEVICE_MAX_BYTE) {
       for (let i = 0; i < DEVICE_MAX_BYTE - deviceId.length; i++) {
-        hexValueArr.push(parseInt(0, 10))
+        hexValueArr.push(parseInt(0, 10));
       }
     }
 
     if (!isNaN(tagCode)) {
-      extendsAsciiValue(hexValueArr, tagCode)
+      extendsAsciiValue(hexValueArr, tagCode);
     }
 
-    parseIntValue(hexValueArr, reqSet)
-    parseIntValue(hexValueArr, func)
-    parseIntValue(hexValueArr, unitId)
-    parseIntValue(hexValueArr, reserved)
+    parseIntValue(hexValueArr, reqSet);
+    parseIntValue(hexValueArr, func);
+    parseIntValue(hexValueArr, unitId);
+    parseIntValue(hexValueArr, reserved);
 
-    byteLengthValue(hexValueArr, address)
-    charCodeAtValue(hexValueArr, endian)
-    parseIntValue(hexValueArr, wordcnt)
-    formatValue(hexValueArr, format)
+    byteLengthValue(hexValueArr, address);
+    charCodeAtValue(hexValueArr, endian);
+    parseIntValue(hexValueArr, wordcnt);
+    formatValue(hexValueArr, format);
 
-    floatHexValue(hexValueArr, scale)
+    floatHexValue(hexValueArr, scale);
     for (let i = 0; i < SCALE_MAX_BYTE; i++) {
-      hexValueArr.push(parseInt(0, 10))
+      hexValueArr.push(parseInt(0, 10));
     }
 
-    parseIntValue(hexValueArr, useFlag)
-    parseIntValue(hexValueArr, port)
-  })
+    parseIntValue(hexValueArr, useFlag);
+    parseIntValue(hexValueArr, port);
+  });
 
-  const childStructureValue = Math.max(...childStructureArr)
-  const msgLength = MSGLENGTH_ONE * childStructureValue
+  const childStructureValue = Math.max(...childStructureArr);
+  const msgLength = MSGLENGTH_ONE * childStructureValue;
 
-  hexValueArr.splice(62, 0, msgLength)
+  hexValueArr.splice(62, 0, msgLength);
   if (String(msgLength).length < 4) {
-    hexValueArr.splice(63, 0, parseInt(0, 10))
+    hexValueArr.splice(63, 0, parseInt(0, 10));
   }
 
-  hexValueArr.splice(64, 0, parseInt(childStructureValue, 10))
+  hexValueArr.splice(64, 0, parseInt(childStructureValue, 10));
   if (String(childStructureValue).length < 4) {
-    hexValueArr.splice(65, 0, parseInt(0, 10))
+    hexValueArr.splice(65, 0, parseInt(0, 10));
   }
 
-  calculateCRCValue(hexValueArr)
-  generateHexFixValue(hexValueArr, finish, finishFixValue)
+  calculateCRCValue(hexValueArr);
+  generateHexFixValue(hexValueArr, finish, finishFixValue);
 
-  const handleDragStart = () => setActive(true)
-  const handleDragEnd = () => setActive(false)
-  const handleDragOver = (e) => e.preventDefault()
+  const handleDragStart = () => setActive(true);
+  const handleDragEnd = () => setActive(false);
+  const handleDragOver = (e) => e.preventDefault();
 
   const setFileInfo = (file) => {
     try {
-      let fileReader = new FileReader()
+      let fileReader = new FileReader();
       fileReader.onload = () => {
-        setUploadedInfo(fileReader.result)
-      }
-      fileReader.readAsText(file)
+        setUploadedInfo(fileReader.result);
+      };
+      fileReader.readAsText(file);
     } catch (error) {
-      console.log(ERROR.CHOOSE)
+      console.log(ERROR.CHOOSE);
     }
-  }
+  };
 
   const handleDrop = (e) => {
     try {
-      e.preventDefault()
-      setActive(false)
+      e.preventDefault();
+      setActive(false);
 
-      const file = e.dataTransfer.files[0]
-      setFileInfo(file)
-      setIsFile(false)
+      const file = e.dataTransfer.files[0];
+      setFileInfo(file);
+      setIsFile(false);
       if (file.size === 0) {
-        alert(ERROR.DATA)
-        return setActive(false)
+        alert(ERROR.DATA);
+        return setActive(false);
       }
     } catch (error) {
-      alert(ERROR.DATA)
+      alert(ERROR.DATA);
     }
-  }
+  };
 
   const handleUpload = ({ target }) => {
     try {
-      const file = target.files[0]
-      setFileInfo(file)
-      console.log(file)
+      const file = target.files[0];
+      setFileInfo(file);
+      console.log(file);
       if (file.size === 0) {
-        alert(ERROR.DATA)
-        return setActive(false)
+        alert(ERROR.DATA);
+        return setActive(false);
       }
-      setIsFile(false)
+      setIsFile(false);
     } catch (error) {
-      alert(ERROR.DATA)
+      alert(ERROR.DATA);
     }
-  }
+  };
 
   const handleFileChange = () => {
-    setIsFile(true)
-    setIsLoading(true)
+    setIsFile(true);
+    setIsLoading(true);
     setTimeout(() => {
-      setIsChanged(false)
-      setIsLoading(false)
-    }, 2000)
-  }
+      setIsChanged(false);
+      setIsLoading(false);
+    }, 2000);
+  };
 
   const handleFileDownload = async () => {
     try {
-      let tempLink = document.createElement('a')
+      let tempLink = document.createElement('a');
       tempLink.setAttribute(
         'href',
         URL.createObjectURL(generateBlob(hexValueArr)),
-      )
-      tempLink.setAttribute('download', SUGGEST_FILENAME)
-      tempLink.click()
-      URL.revokeObjectURL(tempLink.href)
+      );
+      tempLink.setAttribute('download', SUGGEST_FILENAME);
+      tempLink.click();
+      URL.revokeObjectURL(tempLink.href);
     } catch (error) {
-      alert(ERROR.SAVE)
+      alert(ERROR.SAVE);
     }
-  }
+  };
 
   return {
     isActive,
@@ -206,5 +206,5 @@ export default function useFile() {
     handleUpload,
     handleFileChange,
     handleFileDownload,
-  }
+  };
 }

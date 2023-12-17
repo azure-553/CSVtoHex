@@ -1,8 +1,8 @@
-import React from 'react'
-import { styled } from 'styled-components'
-import { Routes, Route } from 'react-router-dom'
-import HomePage from './pages/HomePage'
-import NavBar from './components/NavBar'
+import React from 'react';
+import { styled } from 'styled-components';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import NavBar from './components/NavBar';
 
 const MainRouter = () => {
   return (
@@ -15,8 +15,8 @@ const MainRouter = () => {
         </Routes>
       </Container>
     </section>
-  )
-}
+  );
+};
 
 const Container = styled.div`
   position: relative;
@@ -27,6 +27,6 @@ const Container = styled.div`
   padding-top: 45px;
   max-width: 100%;
   background-color: ${({ theme }) => theme.colors.p500};
-`
+`;
 
-export default MainRouter
+export default MainRouter;
