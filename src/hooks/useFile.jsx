@@ -32,7 +32,6 @@ import {
   SUGGEST_FILENAME,
   MSGLENGTH_ONE,
   SCALE_MAX_BYTE,
-  ALLOW_FILE_EXTENSION,
   MAX_FILE_SIZE,
 } from '../constants';
 
@@ -150,16 +149,14 @@ export default function useFile() {
       // 파일 확장자 체크
       if (!fileExtensionValid(file)) {
         e.target.value = '';
-        alert(
-          `업로드 가능한 확장자가 아닙니다. [가능한 확장자 : ${ALLOW_FILE_EXTENSION}]`,
-        );
+        alert(ERROR.EXTENSION);
         return;
       }
 
       // 파일 용량 체크
       if (file.size > MAX_FILE_SIZE) {
         e.target.value = '';
-        alert('업로드 가능한 최대 용량은 10MB입니다. ');
+        alert(ERROR.MAX);
         return;
       }
       setFileInfo(file);
@@ -188,16 +185,14 @@ export default function useFile() {
       // 파일 확장자 체크
       if (!fileExtensionValid(file)) {
         target.value = '';
-        alert(
-          `업로드 가능한 확장자가 아닙니다. [가능한 확장자 : ${ALLOW_FILE_EXTENSION}]`,
-        );
+        alert(ERROR.EXTENSION);
         return;
       }
 
       // 파일 용량 체크
       if (file.size > MAX_FILE_SIZE) {
         target.value = '';
-        alert('업로드 가능한 최대 용량은 10MB입니다. ');
+        alert(ERROR.MAX);
         return;
       }
 
