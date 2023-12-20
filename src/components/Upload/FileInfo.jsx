@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Title } from '../../styles/font';
-import csvToJSON from '../../utils/csvToJson';
+import { Title } from 'styles/font';
+import csvToJSON from 'utils/csvToJson';
 
 export const FileInfo = ({ uploadedInfo }) => {
   const stringUploadInfo = String(uploadedInfo);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { ButtonText } from '../styles/font';
+import { ButtonText } from 'styles/font';
 
 const FileChangeBtn = ({ text, type, onClick, disabled }) => {
   return (

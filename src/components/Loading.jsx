@@ -1,5 +1,5 @@
 import React from 'react';
-import LoadingSpinner from '../assets/gif/Loading.gif';
+import LoadingSpinner from 'assets/gif/Loading.gif';
 import styled from 'styled-components';
 
 export const Loading = () => {

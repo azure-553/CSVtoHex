@@ -12,7 +12,7 @@ import {
   csvToJSON,
   splitValue,
   fileExtensionValid,
-} from '../utils';
+} from 'utils';
 import {
   header,
   headerFixValue,
@@ -24,7 +24,7 @@ import {
   reservedFixValue,
   finish,
   finishFixValue,
-} from '../utils/fixValue';
+} from 'utils/fixValue';
 import {
   DEVICE_MAX_BYTE,
   ERROR,
@@ -33,7 +33,7 @@ import {
   MSGLENGTH_ONE,
   SCALE_MAX_BYTE,
   MAX_FILE_SIZE,
-} from '../constants';
+} from 'constants';
 
 export default function useFile() {
   const [isActive, setActive] = useState(false);

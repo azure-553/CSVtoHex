@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as Logo } from '../../assets/images/dropbox.svg';
-import { Body, Title } from '../../styles/font';
-import useFile from '../../hooks/useFile';
+import { ReactComponent as Logo } from 'assets/images/dropbox.svg';
+import { Body, Title } from 'styles/font';
+import useFile from 'hooks/useFile';
 import FileBtn from '../FileBtn';
 import { Loading } from '../Loading';
 import { FileInfo } from './FileInfo';
