@@ -6,6 +6,7 @@ export const MSGLENGTH_ONE = 40;
 export const SCALE_MAX_BYTE = 4;
 
 export const ALLOW_FILE_EXTENSION = 'csv';
+export const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 export const ERROR = Object.freeze({
   SAVE: '[ERROR] 파일을 저장해주세요.',
