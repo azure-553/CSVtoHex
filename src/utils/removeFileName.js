@@ -1,4 +1,4 @@
-export const removeFileName = (originalFileName) => {
+export default function removeFileName(originalFileName) {
   // 마지막 .의 위치를 구한다
   // 마지막 .의 위치다음이 파일 확장자를 의미한다
   const lastIndex = originalFileName.lastIndexOf('.');
@@ -13,4 +13,4 @@ export const removeFileName = (originalFileName) => {
   // lastIndex의 값은 마지막 .의 위치이기 때문에 해당 위치 다음부터 끝까지 문자열을 잘라준다.
   // 문자열을 자른 후 소문자로 변경시켜 확장자 값을 반환 해준다.
   return originalFileName.substring(lastIndex + 1).toLowerCase();
-};
+}

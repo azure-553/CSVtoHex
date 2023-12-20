@@ -1,7 +1,7 @@
 import { ALLOW_FILE_EXTENSION } from '../constants';
-import { removeFileName } from './removeFileName';
+import removeFileName from './removeFileName';
 
-export const fileExtensionValid = ({ name }) => {
+export default function fileExtensionValid({ name }) {
   // 파일 확장자
   const extension = removeFileName(name);
 
@@ -21,4 +21,4 @@ export const fileExtensionValid = ({ name }) => {
     return false;
   }
   return true;
-};
+}
