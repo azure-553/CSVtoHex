@@ -9,3 +9,5 @@ export { default as generateBlob } from './generateBlob';
 export { default as calculateCRCValue } from './calculateCRCValue';
 export { default as csvToJSON } from './csvToJson';
 export { default as splitValue } from './splitValue';
+export { default as removeFileName } from './removeFileName';
+export { default as fileExtensionValid } from './fileExtensionValid';

@@ -11,6 +11,7 @@ import {
   calculateCRCValue,
   csvToJSON,
   splitValue,
+  fileExtensionValid,
 } from '../utils';
 import {
   header,
@@ -31,6 +32,8 @@ import {
   SUGGEST_FILENAME,
   MSGLENGTH_ONE,
   SCALE_MAX_BYTE,
+  ALLOW_FILE_EXTENSION,
+  MAX_FILE_SIZE,
 } from '../constants';
 
 export default function useFile() {
@@ -143,8 +146,25 @@ export default function useFile() {
       setActive(false);
 
       const file = e.dataTransfer.files[0];
+
+      // 파일 확장자 체크
+      if (!fileExtensionValid(file)) {
+        e.target.value = '';
+        alert(
+          `업로드 가능한 확장자가 아닙니다. [가능한 확장자 : ${ALLOW_FILE_EXTENSION}]`,
+        );
+        return;
+      }
+
+      // 파일 용량 체크
+      if (file.size > MAX_FILE_SIZE) {
+        e.target.value = '';
+        alert('업로드 가능한 최대 용량은 10MB입니다. ');
+        return;
+      }
       setFileInfo(file);
       setIsFile(false);
+
       if (file.size === 0) {
         alert(ERROR.DATA);
         return setActive(false);
@@ -159,10 +179,28 @@ export default function useFile() {
       const file = target.files[0];
       setFileInfo(file);
       console.log(file);
+
       if (file.size === 0) {
         alert(ERROR.DATA);
         return setActive(false);
       }
+
+      // 파일 확장자 체크
+      if (!fileExtensionValid(file)) {
+        target.value = '';
+        alert(
+          `업로드 가능한 확장자가 아닙니다. [가능한 확장자 : ${ALLOW_FILE_EXTENSION}]`,
+        );
+        return;
+      }
+
+      // 파일 용량 체크
+      if (file.size > MAX_FILE_SIZE) {
+        target.value = '';
+        alert('업로드 가능한 최대 용량은 10MB입니다. ');
+        return;
+      }
+
       setIsFile(false);
     } catch (error) {
       alert(ERROR.DATA);
