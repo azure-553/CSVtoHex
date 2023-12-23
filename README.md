@@ -48,5 +48,7 @@
 [CSVtoHex_서비스 흐름도.pptx](CSVtoHex%20%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%80%E1%85%B5%E1%84%92%E1%85%AC%E1%86%A8%E1%84%89%E1%85%A5%20e3a4f64d097449d5b24a27715aa75d20/CSVtoHex_%25EC%2584%259C%25EB%25B9%2584%25EC%258A%25A4_%25ED%259D%2590%25EB%25A6%2584%25EB%258F%2584.pptx)
 
 # 사용 메뉴얼
-[링크](https://csv-to-hex-mijinsim.notion.site/CSV-to-Hex-87a60fe38dd34480b7efe7d5786384a2) 접속하시면 확인 가능합니다. 만약 접속되지 않을 경우 pdf파일 다운로드 해주세요. 
-[CSVtoHex사용메뉴얼.pdf](https://github.com/azure-553/CSVtoHex/files/13747673/CSVtoHex.pdf)
+[링크](https://csv-to-hex-mijinsim.notion.site/CSV-to-Hex-87a60fe38dd34480b7efe7d5786384a2) 접속하시면 확인 가능합니다. 
+만약 접속되지 않을 경우 pdf파일 다운로드 해주세요. 
+[CSV to Hex 사용 메뉴얼.pdf](https://github.com/azure-553/CSVtoHex/files/13759667/CSV.to.Hex.pdf)
+
