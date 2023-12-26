@@ -9,7 +9,7 @@
 
 # 프로젝트 개요
 
-- CSV 파일을 Hex 파일로 변환하는 프로그램이 필요함.
+- CSV 파일을 Hex 파일로 변환하는 프로그램이 필요함. (HxD프로그램으로 열리는 파일이 필요함)
 
 # 프로젝트 목적
 
@@ -49,6 +49,8 @@
 
 # 사용 메뉴얼
 [링크](https://csv-to-hex-mijinsim.notion.site/CSV-to-Hex-87a60fe38dd34480b7efe7d5786384a2) 접속하시면 확인 가능합니다. 
+
 만약 접속되지 않을 경우 pdf파일 다운로드 해주세요. 
+
 [CSV to Hex 사용 메뉴얼.pdf](https://github.com/azure-553/CSVtoHex/files/13759667/CSV.to.Hex.pdf)
 
