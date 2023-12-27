@@ -52,5 +52,4 @@
 
 만약 접속되지 않을 경우 pdf파일 다운로드 해주세요. 
 
-[CSV to Hex 사용 메뉴얼.pdf](https://github.com/azure-553/CSVtoHex/files/13759667/CSV.to.Hex.pdf)
-
+[CSV to Hex 사용 메뉴얼.pdf](https://github.com/azure-553/CSVtoHex/files/13776326/CSV.to.Hex.V2.pdf)
