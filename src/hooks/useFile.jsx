@@ -99,8 +99,10 @@ export default function useFile() {
     formatValue(hexValueArr, format);
 
     floatHexValue(hexValueArr, scale);
-    for (let i = 0; i < SCALE_MAX_BYTE; i++) {
-      hexValueArr.push(parseInt(0, 10));
+    if (String(scale).length <= SCALE_MAX_BYTE) {
+      for (let i = String(scale).length; i < 5; i++) {
+        hexValueArr.push(parseInt(0, 10));
+      }
     }
 
     parseIntValue(hexValueArr, useFlag);
