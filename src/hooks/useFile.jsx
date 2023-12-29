@@ -100,7 +100,7 @@ export default function useFile() {
 
     floatHexValue(hexValueArr, scale);
     if (String(scale).length <= SCALE_MAX_BYTE) {
-      for (let i = String(scale).length; i < 5; i++) {
+      for (let i = String(scale).length; i < SCALE_MAX_BYTE + 1; i++) {
         hexValueArr.push(parseInt(0, 10));
       }
     }
